@@ -1,17 +1,11 @@
-import { AfterContentInit, Component, ElementRef, OnDestroy, Renderer2, Input, Output, EventEmitter } from '@angular/core';
-import sp from 'signature_pad';
+import { Component, ElementRef, OnDestroy, Renderer2, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import SignaturePad from 'signature_pad';
+import { NgxSignatureOptions } from './types/ngx-signature-pad';
 
 export interface Point {
   x: number;
   y: number;
   time: number;
-}
-
-export interface CanvasConfig {
-  width: number;
-  height: number;
-  backgroundColor: string;
-  borderRadius?: number;
 }
 
 export type PointGroup = Array<Point>;
@@ -20,115 +14,112 @@ export type PointGroup = Array<Point>;
   selector: 'ngx-signature-pad',
   template: '<canvas></canvas>'
 })
-export class NgxSignaturePadComponent implements AfterContentInit, OnDestroy {
-  private signaturePad: any;
+export class NgxSignaturePadComponent implements OnInit {
+  /** The object of dependency 'siganture_pad' */
+  private signaturePad: SignaturePad;
+  /** The object of canvas */
   private canvas: HTMLCanvasElement;
+  /** The state of 'siganture_pad' */
+  public _isEmpty = true;
 
-  @Input() public options: CanvasConfig;
+  @Input() options: NgxSignatureOptions = {};
+
   @Output() public beginSign = new EventEmitter<void>();
   @Output() public endSign = new EventEmitter<void>();
 
-  // notify subscribers on signature begin
-  public onBegin(): void {
-    this.beginSign.emit();
-  }
+  constructor(private elementRef: ElementRef, private renderer2: Renderer2) {}
 
-  // notify subscribers on signature end
-  public onEnd(): void {
-    this.endSign.emit();
-  }
-
-  /** 将canvas的内容转化为jpg */
-  public toDataJPG(): string {
-    return this.signaturePad.toDataURL('image/jpeg'); // save image as data URL
-  }
-
-  // Clears the canvas
-  public clear(): void {
-    this.signaturePad.clear();
-  }
-
-  // Returns true if canvas is empty, otherwise returns false
-  public isEmpty(): boolean {
-    return this.signaturePad.isEmpty();
-  }
-
-  /** 将canvas设置为被修改的状态 */
-  public setDirty(): void {
-    this.signaturePad._isEmpty = false;
-  }
-
-  /** 将canvas设置为未修改的状态 */
-  public setEmpty(): void {
-    this.signaturePad._isEmpty = true;
-  }
-
-  public queryPad(): any {
-    return this.signaturePad;
-  }
-
-  /** 获得canvas实例 */
-  public getCanvas(): HTMLCanvasElement {
-    return this.canvas;
-  }
-
-  /**
-   * 将其他canvas的内容粘贴到本canvas
-   * @param originCanvas 需要粘贴的canvas
-   * @param positive 是否是正向旋转(90deg)
-   */
-  public pasteCanvas(originCanvas: HTMLCanvasElement, positive: boolean): void {
-    const ctx = this.canvas.getContext('2d');
-    ctx.save();
-    if (positive) {
-      ctx.translate(this.canvas.width, 0);
-      ctx.rotate((90 * Math.PI) / 180);
-    } else {
-      ctx.translate(0, this.canvas.height);
-      ctx.rotate((-90 * Math.PI) / 180);
-    }
-    ctx.drawImage(originCanvas, 0, 0, this.canvas.height, this.canvas.width);
-    ctx.restore();
-  }
-
-  /**
-   * 设置canvas的样式
-   * @param config canvas的配置, 具体可以参考接口CanvasConfig
-   */
-  public setCanvasStyle(config: CanvasConfig): void {
-    // 很奇怪, 宽高通过renderer无法设置, 但是背景色又只能通过renderer设置...
-    this.signaturePad._canvas.width = config.width;
-    this.signaturePad._canvas.height = config.height;
-    this.renderer2.setStyle(this.signaturePad._canvas, 'background', config.backgroundColor);
-    this.renderer2.setStyle(this.signaturePad._canvas, 'display', 'block');
-    this.signaturePad.clear(); // otherwise isEmpty() might return incorrect value
-    if (config.borderRadius) {
-      this.renderer2.setStyle(this.canvas, 'border-radius', `${config.borderRadius}px`);
-    }
-  }
-
-  constructor(private elementRef: ElementRef, private renderer2: Renderer2) {
-    this.options = this.options;
-  }
-
-  public ngAfterContentInit(): void {
+  public ngOnInit(): void {
     this.canvas = this.elementRef.nativeElement.querySelector('canvas');
-    if (this.options.height) {
-      this.canvas.height = this.options.height;
+
+    const { width, height, css } = this.options;
+    this.canvas.width = width ? width : 300;
+    this.canvas.height = height ? height : 150;
+
+    for (const key in css) {
+      if (Object.prototype.hasOwnProperty.call(css, key)) {
+        const value = css[key];
+        console.log(key, `key`);
+        console.log(value, `value`);
+        this.renderer2.setStyle(this.canvas, key, value);
+      }
     }
-    if (this.options.width) {
-      this.canvas.width = this.options.width;
-    }
-    if (this.options.borderRadius) {
-      this.renderer2.setStyle(this.canvas, 'border-radius', `${this.options.borderRadius}px`);
-    }
-    this.signaturePad = new sp(this.canvas, this.options);
+
+    this.signaturePad = new SignaturePad(this.canvas, this.options);
     this.signaturePad.onBegin = this.onBegin.bind(this);
     this.signaturePad.onEnd = this.onEnd.bind(this);
   }
 
-  public ngOnDestroy(): void {
-    this.canvas.width = 0;
-    this.canvas.height = 0;
+  public onBegin(): void {
+    this.setDirty();
+    this.beginSign.emit();
+  }
+
+  public onEnd(): void {
+    this.endSign.emit();
+  }
+
+  public toDataURL(type?: 'image/jpeg' | 'image/svg+xml'): string {
+    switch (type) {
+      case 'image/jpeg':
+        return this.signaturePad.toDataURL('image/jpeg');
+      case 'image/svg+xml':
+        return this.signaturePad.toDataURL('image/svg+xml');
+      default:
+        return this.signaturePad.toDataURL();
+    }
+  }
+
+  // Clears the canvas
+  public clear(): void {
+    this.setEmpty();
+    this.signaturePad.clear();
+  }
+
+  /** Return true if canvas is empty, otherwise return false */
+  get isEmpty(): boolean {
+    return this._isEmpty;
+  }
+
+  /** Set canvas's state as dirty */
+  public setDirty(): void {
+    this._isEmpty = false;
+  }
+
+  /** Set canvas's state as empty */
+  public setEmpty(): void {
+    this._isEmpty = true;
+  }
+
+  /** Get instance of canvas */
+  public getCanvasInstance(): HTMLCanvasElement {
+    return this.canvas;
+  }
+
+  /**
+   * @param image 规定要使用的图像、画布或视频。
+   * @param sx 可选。开始剪切的 x 坐标位置。
+   * @param sy 可选。开始剪切的 y 坐标位置。
+   * @param sw 可选。被剪切图像的宽度。
+   * @param sh 可选。被剪切图像的高度。
+   * @param dx 在画布上放置图像的 x 坐标位置。
+   * @param dy 在画布上放置图像的 y 坐标位置。
+   * @param dw 可选。要使用的图像的宽度。（伸展或缩小图像）
+   * @param dh 可选。要使用的图像的高度。（伸展或缩小图像）
+   */
+  public drawImage(
+    image: CanvasImageSource,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number
+  ): void {
+    const ctx = this.canvas.getContext('2d');
+    ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+    this.setDirty();
   }
 }

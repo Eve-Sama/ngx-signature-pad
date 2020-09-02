@@ -1,0 +1,48 @@
+.display-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  .display {
+    position: relative;
+    padding: 40px;
+    border: 2px dashed #3333ff;
+    &::before {
+      position: absolute;
+      content: 'Display';
+      left: 50%;
+      margin-left: -62px;
+      top: -30px;
+      background: #fff;
+      font-size: 40px;
+    }
+  }
+  .direction {
+    margin-left: 18px;
+    position: relative;
+    padding: 40px;
+    border: 2px dashed #3333ff;
+    &::before {
+      position: absolute;
+      content: 'Documentation';
+      left: 50%;
+      margin-left: -107px;
+      top: -30px;
+      background: #fff;
+      font-size: 40px;
+    }
+    table,
+    table tr th,
+    table tr td {
+      min-width: 120px;
+      border: 1px solid #000;
+      user-select: none;
+    }
+    table {
+      width: 600px;
+    }
+    .strong {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}
