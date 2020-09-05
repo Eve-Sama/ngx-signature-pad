@@ -2,14 +2,6 @@ import { Component, ElementRef, OnDestroy, Renderer2, Input, Output, EventEmitte
 import SignaturePad from 'signature_pad';
 import { NgxSignatureOptions } from './types/ngx-signature-pad';
 
-export interface Point {
-  x: number;
-  y: number;
-  time: number;
-}
-
-export type PointGroup = Array<Point>;
-
 @Component({
   selector: 'ngx-signature-pad',
   template: '<canvas></canvas>'
