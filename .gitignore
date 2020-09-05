@@ -45,3 +45,6 @@ testem.log
 .DS_Store
 Thumbs.db
 node_modules
+
+# Custom
+projects/ngx-signature-pad/dist

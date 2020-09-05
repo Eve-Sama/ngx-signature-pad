@@ -2,14 +2,12 @@
   "name": "signature-pad",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "build-lib": "ng build ngx-signature-pad --prod",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~10.0.14",
     "@angular/common": "~10.0.14",
