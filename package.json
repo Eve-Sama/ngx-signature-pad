@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build-lib": "ng build ngx-signature-pad --prod",
+    "deploy": "ng deploy --base-href=\"./\"",
     "start": "ng serve",
     "build": "ng build",
     "lint": "ng lint"
@@ -30,6 +31,7 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "angular-cli-ghpages": "^0.6.2",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.5.0",
     "karma": "~5.0.0",

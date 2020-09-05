@@ -24,7 +24,7 @@ export class AppComponent {
 
   drawImage(): void {
     const img = new Image();
-    img.src = '../assets/signature.png';
+    img.src = 'https://file.qingflow.com/uploads/file/e28cf1bd-f701-4fbb-8aff-942a80013df9.png';
     img.onload = () => {
       this.signature1.drawImage(img, 230, 35, 100, 50, 230, 110, 100, 50);
     };
