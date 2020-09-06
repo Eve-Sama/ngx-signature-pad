@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, Renderer2, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import SignaturePad from 'signature_pad';
+import SignaturePad, { IPointGroup } from 'signature_pad';
 import { NgxSignatureOptions } from './types/ngx-signature-pad';
 
 @Component({
@@ -45,6 +45,16 @@ export class NgxSignaturePadComponent implements OnInit {
   private _onBegin(): void {
     this.setDirty();
     this.onBegin.emit();
+  }
+
+  /** Returns signature image as an array of point groups */
+  public toData(): IPointGroup[] {
+    return this.signaturePad.toData();
+  }
+
+  /** Draws signature image from an array of point groups */
+  public fromData(pointGroups: IPointGroup[]): void {
+    this.signaturePad.fromData(pointGroups);
   }
 
   private _onEnd(): void {

@@ -7,9 +7,9 @@ import { NgxSignaturePadComponent, NgxSignatureOptions } from 'projects/ngx-sign
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild('signature1') signature1: NgxSignaturePadComponent;
+  @ViewChild('signature') signature: NgxSignaturePadComponent;
 
-  public signature1Options: NgxSignatureOptions = {
+  public options: NgxSignatureOptions = {
     backgroundColor: '#F4F5F5',
     width: 570,
     height: 300,
@@ -19,20 +19,20 @@ export class AppComponent {
   };
 
   clear(): void {
-    this.signature1.clear();
+    this.signature.clear();
   }
 
   drawImage(): void {
     const img = new Image();
     img.src = 'https://file.qingflow.com/uploads/file/e28cf1bd-f701-4fbb-8aff-942a80013df9.png';
     img.onload = () => {
-      this.signature1.drawImage(img, 230, 35, 100, 50, 230, 110, 100, 50);
+      this.signature.drawImage(img, 230, 35, 100, 50, 230, 110, 100, 50);
     };
   }
 
   get isEmpty(): boolean {
-    if (this.signature1) {
-      return this.signature1.isEmpty();
+    if (this.signature) {
+      return this.signature.isEmpty();
     }
     return true;
   }
@@ -41,13 +41,13 @@ export class AppComponent {
     let base64: string;
     switch (type) {
       case 'image/jpeg':
-        base64 = this.signature1.toDataURL('image/jpeg');
+        base64 = this.signature.toDataURL('image/jpeg');
         break;
       case 'image/svg+xml':
-        base64 = this.signature1.toDataURL('image/svg+xml');
+        base64 = this.signature.toDataURL('image/svg+xml');
         break;
       default:
-        base64 = this.signature1.toDataURL();
+        base64 = this.signature.toDataURL();
     }
     const a = document.createElement('a');
     const event = new MouseEvent('click');
@@ -57,10 +57,10 @@ export class AppComponent {
   }
 
   public setDirty(): void {
-    this.signature1.setDirty();
+    this.signature.setDirty();
   }
 
   public setEmpty(): void {
-    this.signature1.setEmpty();
+    this.signature.setEmpty();
   }
 }
