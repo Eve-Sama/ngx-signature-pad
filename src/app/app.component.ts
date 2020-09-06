@@ -9,7 +9,7 @@ import { NgxSignaturePadComponent, NgxSignatureOptions } from 'projects/ngx-sign
 export class AppComponent {
   @ViewChild('signature1') signature1: NgxSignaturePadComponent;
 
-  signature1Options: NgxSignatureOptions = {
+  public signature1Options: NgxSignatureOptions = {
     backgroundColor: '#F4F5F5',
     width: 570,
     height: 300,

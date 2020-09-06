@@ -1,7 +1,5 @@
 {
   "name": "@eve-sama/ngx-signature-pad",
-  "author": "Eve",
-  "repository": "https://github.com/Mr-Eve/ngx-signature-pad",
   "version": "0.0.6",
   "peerDependencies": {
     "@angular/common": "^10.0.14",

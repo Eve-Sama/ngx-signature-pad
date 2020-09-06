@@ -16,8 +16,8 @@ export class NgxSignaturePadComponent implements OnInit {
 
   @Input() options: NgxSignatureOptions = {};
 
-  @Output() public beginSign = new EventEmitter<void>();
-  @Output() public endSign = new EventEmitter<void>();
+  @Output() public onBegin = new EventEmitter<void>();
+  @Output() public onEnd = new EventEmitter<void>();
 
   constructor(private elementRef: ElementRef, private renderer2: Renderer2) {}
 
@@ -38,17 +38,17 @@ export class NgxSignaturePadComponent implements OnInit {
     }
 
     this.signaturePad = new SignaturePad(this.canvas, this.options);
-    this.signaturePad.onBegin = this.onBegin.bind(this);
-    this.signaturePad.onEnd = this.onEnd.bind(this);
+    this.signaturePad.onBegin = this._onBegin.bind(this);
+    this.signaturePad.onEnd = this._onEnd.bind(this);
   }
 
-  public onBegin(): void {
+  private _onBegin(): void {
     this.setDirty();
-    this.beginSign.emit();
+    this.onBegin.emit();
   }
 
-  public onEnd(): void {
-    this.endSign.emit();
+  private _onEnd(): void {
+    this.onEnd.emit();
   }
 
   public toDataURL(type?: 'image/jpeg' | 'image/svg+xml'): string {

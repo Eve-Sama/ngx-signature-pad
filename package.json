@@ -1,6 +1,8 @@
 {
   "name": "signature-pad",
   "version": "0.0.0",
+  "author": "Eve",
+  "repository": "https://github.com/Mr-Eve/ngx-signature-pad",
   "scripts": {
     "build-lib": "ng build ngx-signature-pad --prod",
     "deploy": "ng deploy --base-href=\"./\"",

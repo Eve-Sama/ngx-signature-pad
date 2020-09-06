@@ -12,6 +12,7 @@
       "element",
       "ngx",
       "kebab-case"
-    ]
+    ],
+    "no-output-on-prefix": false
   }
 }

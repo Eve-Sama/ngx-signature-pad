@@ -1,50 +1,50 @@
 <div class="display-container">
-  <!-- <img #img src="../assets/signature.png"> -->
-  <div class="display">
-    <ngx-signature-pad #signature1 [options]="signature1Options"></ngx-signature-pad>
-  </div>
-  <div class="direction">
-    <table>
-      <thead>
-          <tr>
-            <th>action</th>
-            <th>describe</th>
-          </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><button type="button" (click)="clear()">clear</button></td>
-          <td>clear signature-pad</td>
-        </tr>
-        <tr>
-          <td>isEmpty</td>
-          <td>Get state of signature-pad, return true if user modify signature-pad, otherwise return false. <span class="strong">Current State is : {{ isEmpty }}</span></td>
-        </tr>
-        <tr>
-          <td><button type="button" (click)="setDirty()">setDirty</button></td>
-          <td>Set 'isEmpty' as false</td>
-        </tr>
-        <tr>
-          <td><button type="button" (click)="setEmpty()">setEmpty</button></td>
-          <td>Set 'isEmpty' as true</td>
-        </tr>
-        <tr>
-          <td><button type="button" (click)="drawImage()">drawImage</button></td>
-          <td>You can paste imaged/canvas/video to the signature-pad</td>
-        </tr>
-        <tr>
-          <td><button type="button" (click)="save('image/jpeg')">saveAsJpeg</button></td>
-          <td>You can get base64 of signature-pad with the format of jpeg</td>
-        </tr>
-        <tr>
-          <td><button type="button" (click)="save()">saveAsPng</button></td>
-          <td>You can get base64 of signature-pad with the format of png</td>
-        </tr>
-        <tr>
-          <td><button type="button" (click)="save('image/svg+xml')">saveAsSvg</button></td>
-          <td>You can get base64 of signature-pad with the format of svg</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+	<div class="display">
+		<ngx-signature-pad #signature1 [options]="signature1Options"></ngx-signature-pad>
+	</div>
+	<div class="direction">
+		<table>
+			<thead>
+				<tr>
+					<th>action</th>
+					<th>describe</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><button type="button" (click)="clear()">clear</button></td>
+					<td>clear signature-pad</td>
+				</tr>
+				<tr>
+					<td>isEmpty</td>
+					<td>Get state of signature-pad, return true if user modify signature-pad, otherwise return false. <span
+							class="strong">Current State is : {{ isEmpty }}</span></td>
+				</tr>
+				<tr>
+					<td><button type="button" (click)="setDirty()">setDirty</button></td>
+					<td>Set 'isEmpty' as false</td>
+				</tr>
+				<tr>
+					<td><button type="button" (click)="setEmpty()">setEmpty</button></td>
+					<td>Set 'isEmpty' as true</td>
+				</tr>
+				<tr>
+					<td><button type="button" (click)="drawImage()">drawImage</button></td>
+					<td>You can paste imaged/canvas/video to the signature-pad</td>
+				</tr>
+				<tr>
+					<td><button type="button" (click)="save('image/jpeg')">saveAsJpeg</button></td>
+					<td>You can get base64 of signature-pad with the format of jpeg</td>
+				</tr>
+				<tr>
+					<td><button type="button" (click)="save()">saveAsPng</button></td>
+					<td>You can get base64 of signature-pad with the format of png</td>
+				</tr>
+				<tr>
+					<td><button type="button" (click)="save('image/svg+xml')">saveAsSvg</button></td>
+					<td>You can get base64 of signature-pad with the format of svg</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
