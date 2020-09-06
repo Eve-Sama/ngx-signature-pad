@@ -83,7 +83,7 @@ export class AppComponent {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `dotSize` | Radius of a single dot. | `number | (() => number)` | - |
+| `dotSize` | Radius of a single dot. | `number \| (() => number)` | - |
 | `minWidth` | Minimum width of a line. | `number` | `0.5` |
 | `maxWidth` | Maximum width of a line. | `number` | `2.5` |
 | `throttle` | Draw the next point at most once per every x milliseconds. Set it to 0 to turn off throttling. | `number` | `16` |
