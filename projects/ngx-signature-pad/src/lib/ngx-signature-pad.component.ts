@@ -69,7 +69,7 @@ export class NgxSignaturePadComponent implements OnInit {
   }
 
   /** Return true if canvas is empty, otherwise return false */
-  get isEmpty(): boolean {
+  public isEmpty(): boolean {
     return this._isEmpty;
   }
 

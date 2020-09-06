@@ -32,7 +32,7 @@ export class AppComponent {
 
   get isEmpty(): boolean {
     if (this.signature1) {
-      return this.signature1.isEmpty;
+      return this.signature1.isEmpty();
     }
     return true;
   }
