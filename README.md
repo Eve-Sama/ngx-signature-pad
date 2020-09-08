@@ -3,7 +3,7 @@
 
 ## 说明
 
-该项目基于原生插件 [signature_pad](https://github.com/szimek/signature_pad) 开发, 在它的基础上使用Angular进行封装, 对外提供更加适合Angular风格的API. 该插件只具备很基础的`签名Canvas`的功能, 而`ngx-signature-pad`则提供了一些实际应用场景中的一些例子, 如`旋转签名`等. 
+该项目基于原生插件 [signature_pad](https://github.com/szimek/signature_pad) 开发, 该插件只具备很基础的`签名Canvas`的功能. 而本插件在它的基础上使用Angular进行封装, 对外提供更加适合Angular风格的API. 并提供了一些实际应用场景中的一些例子, 如`旋转签名`等. 
 
 ## 安装
 
