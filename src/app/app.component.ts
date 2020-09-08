@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgxSignaturePadComponent, NgxSignatureOptions } from 'projects/ngx-signature-pad/src/public-api';
 
 @Component({
@@ -6,7 +6,9 @@ import { NgxSignaturePadComponent, NgxSignatureOptions } from 'projects/ngx-sign
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private image = new Image();
+
   @ViewChild('signature') signature: NgxSignaturePadComponent;
 
   public options: NgxSignatureOptions = {
@@ -18,16 +20,16 @@ export class AppComponent {
     }
   };
 
+  ngOnInit(): void {
+    this.image.src = 'https://file.qingflow.com/uploads/file/e28cf1bd-f701-4fbb-8aff-942a80013df9.png';
+  }
+
   clear(): void {
     this.signature.clear();
   }
 
   drawImage(): void {
-    const img = new Image();
-    img.src = 'https://file.qingflow.com/uploads/file/e28cf1bd-f701-4fbb-8aff-942a80013df9.png';
-    img.onload = () => {
-      this.signature.drawImage(img, 230, 35, 100, 50, 230, 110, 100, 50);
-    };
+    this.signature.drawImage(this.image, 230, 35, 100, 50, 230, 110, 100, 50);
   }
 
   get isEmpty(): boolean {
