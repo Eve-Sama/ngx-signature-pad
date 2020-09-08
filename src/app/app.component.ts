@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgxSignaturePadComponent, NgxSignatureOptions } from 'projects/ngx-signature-pad/src/public-api';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,8 @@ export class AppComponent implements OnInit {
   private image = new Image();
 
   @ViewChild('signature') signature: NgxSignaturePadComponent;
+
+  constructor(private platform: Platform) {}
 
   public options: NgxSignatureOptions = {
     backgroundColor: '#F4F5F5',
@@ -24,11 +27,11 @@ export class AppComponent implements OnInit {
     this.image.src = 'https://file.qingflow.com/uploads/file/e28cf1bd-f701-4fbb-8aff-942a80013df9.png';
   }
 
-  clear(): void {
+  public clear(): void {
     this.signature.clear();
   }
 
-  drawImage(): void {
+  public drawImage(): void {
     this.signature.drawImage(this.image, 230, 35, 100, 50, 230, 110, 100, 50);
   }
 
@@ -39,7 +42,7 @@ export class AppComponent implements OnInit {
     return true;
   }
 
-  save(type?: 'image/jpeg' | 'image/svg+xml'): void {
+  public save(type?: 'image/jpeg' | 'image/svg+xml'): void {
     let base64: string;
     switch (type) {
       case 'image/jpeg':
