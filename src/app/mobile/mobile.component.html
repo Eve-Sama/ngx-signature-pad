@@ -1,1 +1,7 @@
-mobile
+<div class="container">
+  <ngx-signature-pad #signature [options]="options"></ngx-signature-pad>
+  <app-icon class="revert" type="revert" (click)="revert()"></app-icon>
+  <app-icon class="clear" type="clear" (click)="clear()"></app-icon>
+  <app-icon class="big" type="big"></app-icon>
+</div>
+<button type="button" (click)="test()">test</button>

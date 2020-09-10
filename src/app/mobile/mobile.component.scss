@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  app-icon {
+    position: absolute;
+  }
+  .revert {
+    right: 60px;
+    bottom: 20px;
+  }
+  .clear {
+    right: 20px;
+    bottom: 20px;
+  }
+  .big {
+    right: 20px;
+    top: 20px;
+  }
+}

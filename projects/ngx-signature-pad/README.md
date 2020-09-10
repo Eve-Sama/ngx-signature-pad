@@ -3,7 +3,10 @@
 
 ## 说明
 
-该项目基于原生插件 [signature_pad](https://github.com/szimek/signature_pad) 开发, 该插件只具备很基础的`签名Canvas`的功能. 而本插件在它的基础上使用Angular进行封装, 对外提供更加适合Angular风格的API. 并提供了一些实际应用场景中的一些例子, 如`旋转签名`等. 
+该项目基于原生插件 [signature_pad](https://github.com/szimek/signature_pad) 开发, 该插件只具备很基础的`签名Canvas`的功能. 而本插件在它的基础上使用Angular进行封装, 具备如下优势.
+ - 对外提供更加适合Angular风格的API.
+ - 提供更多有用的API, 如`允许用户手动更改状态`、`撤销笔画`等.
+ - 提供了一些实际应用场景中的一些例子, 如`H5小屏与全屏签名`等. 
 
 ## 安装
 
@@ -106,6 +109,7 @@ export class AppComponent {
 | `isEmpty()` | Returns true if canvas is empty, otherwise returns false. |
 | `setDirty()` | Set pad's state as dirty, then `isEmpty()` return false. |
 | `setEmpty()` | Set pad's state as empty, then `isEmpty()` return true. |
+| `revert()` | Undo the last action. |
 
 ## 注意
 

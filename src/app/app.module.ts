@@ -10,9 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgxSignaturePadModule } from 'projects/ngx-signature-pad/src/public-api';
 import { DocumentComponent } from './document/document.component';
 import { MobileComponent } from './mobile/mobile.component';
+import { IconComponent } from './mobile/icon.component';
 
 @NgModule({
-  declarations: [AppComponent, DocumentComponent, MobileComponent],
+  declarations: [AppComponent, DocumentComponent, MobileComponent, IconComponent],
   imports: [BrowserModule, PlatformModule, AppRoutingModule, NgxSignaturePadModule],
   bootstrap: [AppComponent]
 })

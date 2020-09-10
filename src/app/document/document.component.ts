@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { NgxSignaturePadComponent, NgxSignatureOptions } from 'projects/ngx-signature-pad/src/public-api';
 
 @Component({
@@ -12,14 +11,12 @@ export class DocumentComponent implements OnInit {
 
   @ViewChild('signature') signature: NgxSignaturePadComponent;
 
-  constructor(private platform: Platform) {}
-
   public options: NgxSignatureOptions = {
     backgroundColor: '#F4F5F5',
     width: 570,
     height: 300,
     css: {
-      'border-radius': '16px'
+      'border-radius': '6px'
     }
   };
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, Renderer2, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import SignaturePad, { IPointGroup } from 'signature_pad';
 import { NgxSignatureOptions } from './types/ngx-signature-pad';
 
@@ -11,6 +11,8 @@ export class NgxSignaturePadComponent implements OnInit {
   private signaturePad: SignaturePad;
   /** The object of canvas */
   private canvas: HTMLCanvasElement;
+  private signDataHistory: IPointGroup[] = [];
+
   /** The state of 'siganture_pad' */
   public _isEmpty = true;
 
@@ -31,8 +33,6 @@ export class NgxSignaturePadComponent implements OnInit {
     for (const key in css) {
       if (Object.prototype.hasOwnProperty.call(css, key)) {
         const value = css[key];
-        console.log(key, `key`);
-        console.log(value, `value`);
         this.renderer2.setStyle(this.canvas, key, value);
       }
     }
@@ -43,8 +43,13 @@ export class NgxSignaturePadComponent implements OnInit {
   }
 
   private _onBegin(): void {
-    this.setDirty();
+    this.setDirty(); // When user draws, set state as dirty
     this.onBegin.emit();
+  }
+
+  private _onEnd(): void {
+    this.signDataHistory = this.toData();
+    this.onEnd.emit();
   }
 
   /** Returns signature image as an array of point groups */
@@ -55,10 +60,6 @@ export class NgxSignaturePadComponent implements OnInit {
   /** Draws signature image from an array of point groups */
   public fromData(pointGroups: IPointGroup[]): void {
     this.signaturePad.fromData(pointGroups);
-  }
-
-  private _onEnd(): void {
-    this.onEnd.emit();
   }
 
   public toDataURL(type?: 'image/jpeg' | 'image/svg+xml'): string {
@@ -72,9 +73,18 @@ export class NgxSignaturePadComponent implements OnInit {
     }
   }
 
+  public revert(): void {
+    this.signDataHistory.pop();
+    this.fromData(this.signDataHistory);
+    if (this.signDataHistory.length === 0) {
+      this.setEmpty();
+    }
+  }
+
   // Clears the canvas
   public clear(): void {
     this.setEmpty();
+    this.signDataHistory = [];
     this.signaturePad.clear();
   }
 
