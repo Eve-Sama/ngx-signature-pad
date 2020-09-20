@@ -9,8 +9,7 @@ import {
   SimpleChanges,
   TemplateRef,
   ViewChild,
-  ViewContainerRef,
-  ChangeDetectorRef
+  ViewContainerRef
 } from '@angular/core';
 import SignaturePad, { IPointGroup } from 'signature_pad';
 import { NgxSignatureOptions } from './types/ngx-signature-pad';
@@ -34,9 +33,9 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   private overlayRef: OverlayRef;
   private portal: TemplatePortal;
 
-  /** The state of 'siganture_pad' */
   public _isEmpty = true;
   public isFullScreen = false;
+  public sectionHeight: number;
 
   get activePad(): SignaturePad {
     return this.isFullScreen ? this.bigPad : this.smallPad;
@@ -49,25 +48,25 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   @ViewChild('fullscreenTpl') fullscreenTpl: TemplateRef<void>;
 
-  constructor(
-    private renderer2: Renderer2,
-    private overlay: Overlay,
-    private cdr: ChangeDetectorRef,
-    private viewContainerRef: ViewContainerRef
-  ) {}
+  constructor(private renderer2: Renderer2, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
 
   private initBigPad(): void {
-    this.cdr.detectChanges();
-    console.log('initBigPad');
     this.bigCanvas = document.querySelector('#nsp-big');
     const fullScreenOptions = Object.assign(this.options);
-    const width = document.documentElement.clientWidth;
-    const height = document.documentElement.clientHeight;
-    fullScreenOptions.width = width;
-    fullScreenOptions.height = height;
+    // Calculate the fullscreen pad's size
+    const fullScreenWidth = document.documentElement.clientWidth;
+    const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
+    const fullScreenHeight = (fullScreenWidth * miniScreenWidth) / miniScreenHeight;
+    // Calculate section size
+    const viewHeight = document.documentElement.clientHeight;
+    const space = viewHeight - fullScreenHeight;
+    this.sectionHeight = space / 2;
+    // Init pad
+    fullScreenOptions.width = fullScreenWidth;
+    fullScreenOptions.height = fullScreenHeight;
     const { css } = fullScreenOptions;
-    this.bigCanvas.width = width;
-    this.bigCanvas.height = height;
+    this.bigCanvas.width = fullScreenWidth;
+    this.bigCanvas.height = fullScreenHeight;
     for (const key in css) {
       if (Object.prototype.hasOwnProperty.call(css, key)) {
         const value = css[key];
@@ -130,6 +129,12 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     console.log(changes.options, `changes.options`);
   }
 
+  private calcScale(): void {
+    const fullScreenWidth = document.documentElement.clientWidth;
+    const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
+    const fullScreenHeight = (fullScreenWidth * miniScreenHeight) / miniScreenWidth;
+  }
+
   public fullscreen(): void {
     this.isFullScreen = true;
     this.portal = new TemplatePortal(this.fullscreenTpl, this.viewContainerRef);
@@ -145,11 +150,11 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     const fullScreenWidth = document.documentElement.clientWidth;
     const fullScreenHeight = document.documentElement.clientHeight;
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
+    const scale = fullScreenHeight / miniScreenWidth;
     const ctx = this.bigCanvas.getContext('2d');
     ctx.save();
     ctx.translate(miniScreenWidth, 0);
     ctx.rotate((90 * Math.PI) / 180);
-    const scale = fullScreenHeight / miniScreenWidth;
     ctx.drawImage(this.smallCanvas, 0, 0, miniScreenWidth, miniScreenHeight, 0, 0, miniScreenWidth * scale, miniScreenHeight * scale);
     ctx.restore();
     // #endregion

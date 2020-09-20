@@ -2,7 +2,9 @@
 
 <ng-template #fullscreenTpl>
   <div class="nsp-container">
+    <div class="section" style="width: 100%;" [ngStyle]="{'height': '52px'}"></div>
     <canvas id="nsp-big"></canvas>
+    <div class="section" style="width: 100%;" [ngStyle]="{'height': sectionHeight + 'px'}"></div>
     <ng-content></ng-content>
   </div>
 </ng-template>
