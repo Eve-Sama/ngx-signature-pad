@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSignaturePadComponent, NgxSignatureOptions } from 'projects/ngx-signature-pad/src/public-api';
 
 @Component({
@@ -30,7 +30,14 @@ export class MobileComponent implements OnInit {
     this.signature.clear();
   }
 
-  constructor(private elementRef: ElementRef) {}
+  public fullScreen(): void {
+    console.log('set');
+    this.signature.fullscreen();
+  }
+
+  public miniScreen(): void {
+    this.signature.miniscreen();
+  }
 
   ngOnInit(): void {
     this.calcMiniscreenSize();

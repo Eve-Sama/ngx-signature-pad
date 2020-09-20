@@ -1,10 +1,18 @@
 import { IOptions } from 'signature_pad';
 
 export interface NgxSignatureOptions extends IOptions {
-  /** the width of canvas */
+  /** The width of canvas */
   width?: number;
-  /** the height of canvas */
+  /** The height of canvas */
   height?: number;
-  /** the css of canvas */
+  /** The css of canvas */
   css?: { [key: string]: string };
+  // /**
+  //  * If it is 'miniScreen', then fullScreen() can't work,
+  //  * if it is 'fullScreen', then miniScreen() can't work,
+  //  * if it is 'both', you can switch screen mode as you want.
+  //  */
+  // modeOption?: 'miniScreen' | 'fullScreen' | 'both';
+  // /** Init pad mode */
+  // mode?: 'miniScreen' | 'fullScreen';
 }

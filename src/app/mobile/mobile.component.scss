@@ -16,3 +16,24 @@
     top: 20px;
   }
 }
+
+.fullscreen-small {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  transform: rotate(90deg);
+}
+
+.fullscreen-revert {
+  position: fixed;
+  bottom: 72px;
+  left: 24px;
+  transform: rotate(90deg);
+}
+
+.fullscreen-clear {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  transform: rotate(90deg);
+}
