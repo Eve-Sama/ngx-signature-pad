@@ -52,7 +52,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   private initBigPad(): void {
     this.bigCanvas = document.querySelector('#nsp-big');
-    const fullScreenOptions = Object.assign(this.options);
+    const fullScreenOptions = JSON.parse(JSON.stringify(this.options)) ;
     // Calculate the fullscreen pad's size
     const fullScreenWidth = document.documentElement.clientWidth;
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
@@ -105,34 +105,12 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // #region delete
-    // this.options.modeOption = this.options.modeOption || 'miniScreen';
-    // this.isFullScreen = this.options.mode === 'fullScreen';
-    // console.log(this.options.modeOption, `this.options.modeOption`);
-    // switch (this.options.modeOption) {
-    //   case 'miniScreen':
-    //     break;
-    //   case 'fullScreen':
-    //     this.initBigPad();
-    //     break;
-    //   case 'both':
-    //     this.initSmallPad();
-    //     this.initBigPad();
-    //     break;
-    // }
-    // #endregion
     this.initSmallPad();
   }
 
   // For the future
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes.options, `changes.options`);
-  }
-
-  private calcScale(): void {
-    const fullScreenWidth = document.documentElement.clientWidth;
-    const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
-    const fullScreenHeight = (fullScreenWidth * miniScreenHeight) / miniScreenWidth;
   }
 
   public fullscreen(): void {
