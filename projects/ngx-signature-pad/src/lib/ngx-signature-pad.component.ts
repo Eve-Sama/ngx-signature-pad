@@ -41,7 +41,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   public isFullScreen = false;
   public sectionHeight: number;
 
-  get activePad(): SignaturePad {
+  private get activePad(): SignaturePad {
     return this.isFullScreen ? this.bigPad : this.smallPad;
   }
 
@@ -52,70 +52,6 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   @ViewChild('fullscreenTpl') fullscreenTpl: TemplateRef<void>;
 
-  constructor(private renderer2: Renderer2, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
-
-  private initBigPad(): void {
-    this.bigCanvas = document.querySelector('#nsp-big');
-    const fullScreenOptions = JSON.parse(JSON.stringify(this.options));
-    // Calculate the fullscreen pad's size
-    this.fullScreenWidth = document.documentElement.clientWidth;
-    const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
-    this.fullScreenHeight = (this.fullScreenWidth * miniScreenWidth) / miniScreenHeight;
-    // Calculate section size
-    const viewHeight = document.documentElement.clientHeight;
-    const space = viewHeight - this.fullScreenHeight;
-    this.sectionHeight = space / 2;
-    // Init pad
-    fullScreenOptions.width = this.fullScreenWidth;
-    fullScreenOptions.height = this.fullScreenHeight;
-    const { css } = fullScreenOptions;
-    this.bigCanvas.width = this.fullScreenWidth;
-    this.bigCanvas.height = this.fullScreenHeight;
-    for (const key in css) {
-      if (Object.prototype.hasOwnProperty.call(css, key)) {
-        const value = css[key];
-        this.renderer2.setStyle(this.bigCanvas, key, value);
-      }
-    }
-    this.bigPad = new SignaturePad(this.bigCanvas, fullScreenOptions);
-    this.bigPad.onBegin = this._onBegin.bind(this);
-    this.bigPad.onEnd = this._onEnd.bind(this);
-  }
-
-  private initSmallPad(): void {
-    this.smallCanvas = document.querySelector('#nsp-small');
-    const { width, height, css } = this.options;
-    this.smallCanvas.width = width ? width : 300;
-    this.smallCanvas.height = height ? height : 150;
-    for (const key in css) {
-      if (Object.prototype.hasOwnProperty.call(css, key)) {
-        const value = css[key];
-        this.renderer2.setStyle(this.smallCanvas, key, value);
-      }
-    }
-    this.smallPad = new SignaturePad(this.smallCanvas, this.options);
-    this.smallPad.onBegin = this._onBegin.bind(this);
-    this.smallPad.onEnd = this._onEnd.bind(this);
-  }
-
-  private _onBegin(): void {
-    this.setDirty(); // When user draws, set state as dirty
-    this.onBegin.emit();
-  }
-
-  private _onEnd(): void {
-    this.signDataHistory = this.toData();
-    this.onEnd.emit();
-  }
-
-  ngOnInit(): void {
-    this.initSmallPad();
-  }
-
-  // For the future
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes.options, `changes.options`);
-  }
 
   public fullscreen(): void {
     this.portal = new TemplatePortal(this.fullscreenTpl, this.viewContainerRef);
@@ -231,5 +167,70 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   public getContext(): CanvasRenderingContext2D {
     return this.isFullScreen ? this.bigCanvas.getContext('2d') : this.smallCanvas.getContext('2d');
+  }
+
+  private initBigPad(): void {
+    this.bigCanvas = document.querySelector('#nsp-big');
+    const fullScreenOptions = JSON.parse(JSON.stringify(this.options));
+    // Calculate the fullscreen pad's size
+    this.fullScreenWidth = document.documentElement.clientWidth;
+    const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
+    this.fullScreenHeight = (this.fullScreenWidth * miniScreenWidth) / miniScreenHeight;
+    // Calculate section size
+    const viewHeight = document.documentElement.clientHeight;
+    const space = viewHeight - this.fullScreenHeight;
+    this.sectionHeight = space / 2;
+    // Init pad
+    fullScreenOptions.width = this.fullScreenWidth;
+    fullScreenOptions.height = this.fullScreenHeight;
+    const { css } = fullScreenOptions;
+    this.bigCanvas.width = this.fullScreenWidth;
+    this.bigCanvas.height = this.fullScreenHeight;
+    for (const key in css) {
+      if (Object.prototype.hasOwnProperty.call(css, key)) {
+        const value = css[key];
+        this.renderer2.setStyle(this.bigCanvas, key, value);
+      }
+    }
+    this.bigPad = new SignaturePad(this.bigCanvas, fullScreenOptions);
+    this.bigPad.onBegin = this._onBegin.bind(this);
+    this.bigPad.onEnd = this._onEnd.bind(this);
+  }
+
+  private initSmallPad(): void {
+    this.smallCanvas = document.querySelector('#nsp-small');
+    const { width, height, css } = this.options;
+    this.smallCanvas.width = width ? width : 300;
+    this.smallCanvas.height = height ? height : 150;
+    for (const key in css) {
+      if (Object.prototype.hasOwnProperty.call(css, key)) {
+        const value = css[key];
+        this.renderer2.setStyle(this.smallCanvas, key, value);
+      }
+    }
+    this.smallPad = new SignaturePad(this.smallCanvas, this.options);
+    this.smallPad.onBegin = this._onBegin.bind(this);
+    this.smallPad.onEnd = this._onEnd.bind(this);
+  }
+
+  private _onBegin(): void {
+    this.setDirty(); // When user draws, set state as dirty
+    this.onBegin.emit();
+  }
+
+  private _onEnd(): void {
+    this.signDataHistory = this.toData();
+    this.onEnd.emit();
+  }
+
+  constructor(private renderer2: Renderer2, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
+
+  ngOnInit(): void {
+    this.initSmallPad();
+  }
+
+  // For the future
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes.options, `changes.options`);
   }
 }
