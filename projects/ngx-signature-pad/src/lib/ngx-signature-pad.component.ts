@@ -118,7 +118,6 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   }
 
   public fullscreen(): void {
-    this.isFullScreen = true;
     this.portal = new TemplatePortal(this.fullscreenTpl, this.viewContainerRef);
     this.overlayRef = this.overlay.create({
       positionStrategy: this.overlay.position().global(),
@@ -149,24 +148,34 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     );
     ctx.restore();
     // #endregion
+    this.isFullScreen = true;
   }
 
   public miniscreen(): void {
-    console.log('mini');
-    // #region Copy miniscreen's content to fullscreen
-    // const fullScreenWidth = document.documentElement.clientWidth;
-    // const fullScreenHeight = document.documentElement.clientHeight;
-    // const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
-    // const scale = miniScreenWidth / fullScreenHeight;
-    // const ctx = this.smallCanvas.getContext('2d');
-    // ctx.save();
-    // ctx.translate(0, 0);
-    // // ctx.rotate((90 * Math.PI) / 180);
-    // ctx.drawImage(this.bigCanvas, 0, 0, fullScreenWidth, fullScreenHeight, 0, 0, fullScreenWidth * scale, fullScreenHeight * scale);
-    // ctx.restore();
+    this.smallPad.clear();
+    // #region Copy fullscreen's content to miniscreen
+    const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
+    const widthScale = miniScreenWidth / this.fullScreenHeight;
+    const heightScale = miniScreenHeight / this.fullScreenWidth;
+    const ctx = this.smallCanvas.getContext('2d');
+    ctx.save();
+    ctx.translate(0, miniScreenHeight);
+    ctx.rotate((-90 * Math.PI) / 180);
+    ctx.drawImage(
+      this.bigCanvas,
+      0,
+      0,
+      this.fullScreenWidth,
+      this.fullScreenHeight,
+      0,
+      0,
+      this.fullScreenWidth * widthScale,
+      this.fullScreenHeight * heightScale
+    );
+    ctx.restore();
     // #endregion
-    this.isFullScreen = false;
     this.overlayRef.dispose();
+    this.isFullScreen = false;
   }
 
   /** Returns signature image as an array of point groups */

@@ -31,7 +31,6 @@ export class MobileComponent implements OnInit {
   }
 
   public fullScreen(): void {
-    console.log('set');
     this.signature.fullscreen();
   }
 
@@ -50,6 +49,5 @@ export class MobileComponent implements OnInit {
     const height = (width * 2) / 3;
     this.options.width = width;
     this.options.height = height;
-    // this.miniscreentSignature.setCanvasStyle(this.options);
   }
 }
