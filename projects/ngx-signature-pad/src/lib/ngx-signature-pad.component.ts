@@ -30,15 +30,16 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   private smallCanvas: HTMLCanvasElement;
   private bigCanvas: HTMLCanvasElement;
   // #endregion
+  // #region CDK
+  private overlayRef: OverlayRef;
+  private portal: TemplatePortal;
+  // #endregion
   private signDataHistory: IPointGroup[] = [];
   private fullScreenWidth: number;
   private fullScreenHeight: number;
-  // CDK
-  private overlayRef: OverlayRef;
-  private portal: TemplatePortal;
+  private _isEmpty = true;
+  private isFullScreen = false;
 
-  public _isEmpty = true;
-  public isFullScreen = false;
   public sectionHeight: number;
 
   private get activePad(): SignaturePad {
