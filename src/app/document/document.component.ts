@@ -29,7 +29,7 @@ export class DocumentComponent implements OnInit {
   }
 
   public drawImage(): void {
-    this.signature.drawImage(this.image, 230, 35, 100, 50, 230, 110, 100, 50);
+    this.signature.getContext().drawImage(this.image, 230, 35, 100, 50, 230, 110, 100, 50);
   }
 
   get isEmpty(): boolean {

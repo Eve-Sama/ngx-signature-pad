@@ -229,30 +229,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     this._isEmpty = true;
   }
 
-  /**
-   * @param image 规定要使用的图像、画布或视频。
-   * @param sx 可选。开始剪切的 x 坐标位置。
-   * @param sy 可选。开始剪切的 y 坐标位置。
-   * @param sw 可选。被剪切图像的宽度。
-   * @param sh 可选。被剪切图像的高度。
-   * @param dx 在画布上放置图像的 x 坐标位置。
-   * @param dy 在画布上放置图像的 y 坐标位置。
-   * @param dw 可选。要使用的图像的宽度。（伸展或缩小图像）
-   * @param dh 可选。要使用的图像的高度。（伸展或缩小图像）
-   */
-  public drawImage(
-    image: CanvasImageSource,
-    sx: number,
-    sy: number,
-    sw: number,
-    sh: number,
-    dx: number,
-    dy: number,
-    dw: number,
-    dh: number
-  ): void {
-    const ctx = this.smallCanvas.getContext('2d');
-    ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-    this.setDirty();
+  public getContext(): CanvasRenderingContext2D {
+    return this.isFullScreen ? this.bigCanvas.getContext('2d') : this.smallCanvas.getContext('2d');
   }
 }
