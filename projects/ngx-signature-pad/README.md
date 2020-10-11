@@ -1,4 +1,4 @@
-English | [简体中文](README-zh_CN.md)
+English | [简体中文](https://github.com/Mr-Eve/ngx-signature-pad/blob/master/README-zh_CN.md)
 
 ## Demo
 You can see all detail directions of API and demo in [here](https://mr-eve.github.io/ngx-signature-pad/)
