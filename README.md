@@ -1,26 +1,27 @@
-## 示例
-你可以在[这里](https://mr-eve.github.io/ngx-signature-pad/)查看所有API的详细说明以及应用演示.
+English | [简体中文](README-zh_CN.md)
 
-## 说明
+## Demo
+You can see all detail directions of API and demo in [here](https://mr-eve.github.io/ngx-signature-pad/)
 
-该项目基于原生插件 [signature_pad](https://github.com/szimek/signature_pad) 开发, 该插件只具备很基础的`签名Canvas`的功能. 而本插件在它的基础上使用Angular进行封装, 具备如下优势.
- - 对外提供更加适合Angular风格的API.
- - 提供更多有用的API, 如`允许用户手动更改状态`、`撤销笔画`等.
- - 提供了一些实际应用场景中的一些例子, 如`H5小屏与全屏签名`等. 
+## Direction
 
-## 安装
+This project is based on canvas plugin [signature_pad](https://github.com/szimek/signature_pad), and the canvas plugin only has basic functions, like `signature canvas`. I have encapsulated it with Angular which has the following features:
+ - Provide API more suitable style for Angular.
+ - Provide features not available in native plugins, like `modify state of signature manually`、`revert painting`、`fullscreen to sign` and so on.
 
-通过NPM
+## Install
+
+Via NPM
 ```bash
 npm install --save @eve-sama/ngx-signature_pad
 ```
 
-通过Yarn
+Via yarn
 ```bash
 yarn add --save @eve-sama/ngx-signature_pad
 ```
 
-## 使用
+## Usage
 
 ### AppModule
 ```typescript
@@ -36,7 +37,7 @@ import { NgxSignaturePadModule } from '@eve-sama/ngx-signature-pad';
   ],
   imports: [
     BrowserModule,
-    // 你需要在应用组件所在的模块中导入 ngx-signature-pad 模块
+    // You need to import module of ngx-signature-pad
     NgxSignaturePadModule
   ],
   bootstrap: [AppComponent]
@@ -58,14 +59,13 @@ import { NgxSignaturePadComponent, NgxSignatureOptions } from '@eve-sama/ngx-sig
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  /** 捕获对象, 通过对象调用其实例方法 */
+  /** Catch object, call functions via instance object */
   @ViewChild('signature') signature: NgxSignaturePadComponent;
 
-  /** 配置项, 可以设置ngx-signature-pad的参数, 具体内容参见下文对 NgxSignatureOptions 的详细介绍 */
+  /** You can see more introduction in the below about NgxSignatureOptions */
   public options: NgxSignatureOptions = {
     backgroundColor: '#F4F5F5',
     width: 570,
@@ -75,16 +75,16 @@ export class AppComponent {
     }
   };
 
-  /** 开始签字的事件 */
+  /** The begin event of sign */
   onBegin(): void { }
 
-  /** 停止签字的事件 */
+  /** The end event of sign */
   onEnd(): void { }
 }
 ```
 ### NgxSignatureOptions
 
-| 参数 | 说明 | 类型 | 默认值 |
+| Params | Direction | Type | Default |
 | --- | --- | --- | --- |
 | `dotSize` | Radius of a single dot. | `number \| (() => number)` | - |
 | `minWidth` | Minimum width of a line. | `number` | `0.5` |
@@ -95,9 +95,9 @@ export class AppComponent {
 | `penColor` | Color used to draw the lines. Can be any color format accepted by context.fillStyle. | `string` | `'black'` |
 | `velocityFilterWeight` | Weight used to modify new velocity based on the previous velocity. | `number` | `0.7` |
 
-### 实例方法
+### Instance Method
 
-| 方法名 | 说明 |
+| Fcuntion | Direction |
 | --- | --- |
 | `toDataURL()` | Get data URL of it as PNG. |
 | `toDataURL("image/jpeg")` | Get data URL of it as JPEG. |
@@ -109,8 +109,14 @@ export class AppComponent {
 | `isEmpty()` | Returns true if canvas is empty, otherwise returns false. |
 | `setDirty()` | Set pad's state as dirty, then `isEmpty()` return false. |
 | `setEmpty()` | Set pad's state as empty, then `isEmpty()` return true. |
-| `revert()` | Undo the last action. |
+| `revert()` | Undo the last action. Notice that if you have the change of `fullscreen()` and `miniscreen()`, the `revert()` can not work after you change the mode. Under this situation, I do not recommend use it. |
+| `fullscreen()` | You can change the mode to fullscreen, the aspect ratio of the fullscreen signature is the same as that of the miniscreen signature. |
+| `miniscreen()` | You can change the mode to miniscreen. The inicial mode is miniscreen when you init the component. |
 
-## 注意
+### Notice
 
-该项目尚未全部完成, 尚在研发中. 
+The project has not been completed yet, it is still under development, the current version is Beta
+
+## Front-end development exchange group
+
+Welcome everyone to join the QQ group 925528845 to discussion :D
