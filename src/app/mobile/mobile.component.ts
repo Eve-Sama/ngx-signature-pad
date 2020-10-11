@@ -18,10 +18,6 @@ export class MobileComponent implements OnInit {
     }
   };
 
-  test(): void {
-    console.log(this.signature.isEmpty());
-  }
-
   public revert(): void {
     this.signature.revert();
   }
@@ -40,7 +36,6 @@ export class MobileComponent implements OnInit {
 
   ngOnInit(): void {
     this.calcMiniscreenSize();
-    // 移动端需要提供 撤销、水印、全屏、清除等功能
   }
 
   /** 计算小屏签名的大小 */

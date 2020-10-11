@@ -94,6 +94,9 @@ export class AppComponent {
 | `backgroundColor` | Color used to clear the background. Can be any color format accepted by context.fillStyle. Use a non-transparent color e.g. "rgb(255,255,255)" (opaque white) if you'd like to save signatures as JPEG images. | `string` | `'rgba(0,0,0,0)'` |
 | `penColor` | Color used to draw the lines. Can be any color format accepted by context.fillStyle. | `string` | `'black'` |
 | `velocityFilterWeight` | Weight used to modify new velocity based on the previous velocity. | `number` | `0.7` |
+| `width` | The width of canvas. | `number` | `300px` |
+| `height` | The height of canvas. | `number` | `150px` |
+| `css` | Custom css of canvs, you can see code of demo to get detail info. Notice that we use `Renderer2` to render css, not sure whether it support all css | `{ [key: string]: string }` | - |
 
 ### Instance Method
 
@@ -112,6 +115,34 @@ export class AppComponent {
 | `revert()` | Undo the last action. Notice that if you have the change of `fullscreen()` and `miniscreen()`, the `revert()` can not work after you change the mode. Under this situation, I do not recommend use it. |
 | `fullscreen()` | You can change the mode to fullscreen, the aspect ratio of the fullscreen signature is the same as that of the miniscreen signature. |
 | `miniscreen()` | You can change the mode to miniscreen. The inicial mode is miniscreen when you init the component. |
+
+### Modify config during run time
+
+This plugin allow you modify config during run time, just modify the options that you want to pass. Notice that you can not only change the attribute of options. Because `OnChanges` does not trigger under this circumstance. You need to reassign the options. For example, the initial options as below: 
+
+```typescript
+  const options: NgxSignatureOptions = {
+    penColor: 'rgb(0, 0, 0)' // Black
+    width: 300,
+    height: 150
+  };
+```
+
+After run code, if you wan to change the color of pen, if you write code as below, it does not work.
+
+```typescript
+  options.penColor = 'rgb(255, 0, 0)'; // Does not work, because can not trigger OnChanges
+```
+
+You need to reassign as below.
+
+```typescript
+  const options: NgxSignatureOptions = {
+    penColor: 'rgb(255, 0, 0)' // Change the black to red
+    width: 300,
+    height: 150
+  };
+```
 
 ### Notice
 

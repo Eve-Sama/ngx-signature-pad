@@ -53,7 +53,6 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   @ViewChild('fullscreenTpl') fullscreenTpl: TemplateRef<void>;
 
-
   public fullscreen(): void {
     this.portal = new TemplatePortal(this.fullscreenTpl, this.viewContainerRef);
     this.overlayRef = this.overlay.create({
@@ -112,6 +111,8 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     ctx.restore();
     // #endregion
     this.overlayRef.dispose();
+    this.bigCanvas = null;
+    this.bigPad = null;
     this.isFullScreen = false;
   }
 
@@ -224,14 +225,88 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     this.onEnd.emit();
   }
 
+  private setPadAttribute(key: string, value: any): void {
+    if (this.bigPad) {
+      this.bigPad[key] = value;
+    }
+    // Obviously, it's necessary to judge whether smallPad is exist.
+    // But in the future, it's going to support only enable fullscreen mode. There, it's needed in the future.
+    if (this.smallPad) {
+      this.smallPad[key] = value;
+    }
+  }
+
   constructor(private renderer2: Renderer2, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
 
   ngOnInit(): void {
     this.initSmallPad();
   }
 
-  // For the future
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes.options, `changes.options`);
+    if (changes.options.firstChange) {
+      return;
+    }
+    const {
+      dotSize,
+      minWidth,
+      maxWidth,
+      throttle,
+      minDistance,
+      backgroundColor,
+      penColor,
+      velocityFilterWeight,
+      width,
+      height,
+      css
+    } = changes.options.currentValue;
+    if (dotSize) {
+      this.setPadAttribute('dotSize', dotSize);
+    }
+    if (minWidth) {
+      this.setPadAttribute('minWidth', minWidth);
+    }
+    if (maxWidth) {
+      this.setPadAttribute('maxWidth', maxWidth);
+    }
+    if (throttle) {
+      this.setPadAttribute('throttle', throttle);
+    }
+    if (minDistance) {
+      this.setPadAttribute('minDistance', minDistance);
+    }
+    if (backgroundColor) {
+      this.setPadAttribute('backgroundColor', backgroundColor);
+    }
+    if (penColor) {
+      this.setPadAttribute('penColor', penColor);
+    }
+    if (velocityFilterWeight) {
+      this.setPadAttribute('velocityFilterWeight', velocityFilterWeight);
+    }
+    if (width) {
+      console.error('Do not surrpot width now');
+    }
+    if (height) {
+      console.error('Do not surrpot height now');
+    }
+    if (css) {
+      if (this.bigCanvas) {
+        for (const key in css) {
+          if (Object.prototype.hasOwnProperty.call(css, key)) {
+            const value = css[key];
+            this.renderer2.setStyle(this.bigCanvas, key, value);
+          }
+        }
+      }
+      if (this.smallCanvas) {
+        for (const key in css) {
+          if (Object.prototype.hasOwnProperty.call(css, key)) {
+            const value = css[key];
+            this.renderer2.setStyle(this.smallCanvas, key, value);
+          }
+        }
+      }
+    }
   }
 }
