@@ -22,13 +22,17 @@ import { TemplatePortal } from '@angular/cdk/portal';
   styleUrls: ['./ngx-signature-pad.component.scss']
 })
 export class NgxSignaturePadComponent implements OnInit, OnChanges {
-  /** The object of dependency 'siganture_pad' */
+  // #region The object of dependency 'siganture_pad'
   private smallPad: SignaturePad;
   private bigPad: SignaturePad;
-  /** The object of canvas */
+  // #endregion
+  // #region The object of canvas
   private smallCanvas: HTMLCanvasElement;
   private bigCanvas: HTMLCanvasElement;
+  // #endregion
   private signDataHistory: IPointGroup[] = [];
+  private fullScreenWidth: number;
+  private fullScreenHeight: number;
   // CDK
   private overlayRef: OverlayRef;
   private portal: TemplatePortal;
@@ -52,21 +56,21 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   private initBigPad(): void {
     this.bigCanvas = document.querySelector('#nsp-big');
-    const fullScreenOptions = JSON.parse(JSON.stringify(this.options)) ;
+    const fullScreenOptions = JSON.parse(JSON.stringify(this.options));
     // Calculate the fullscreen pad's size
-    const fullScreenWidth = document.documentElement.clientWidth;
+    this.fullScreenWidth = document.documentElement.clientWidth;
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
-    const fullScreenHeight = (fullScreenWidth * miniScreenWidth) / miniScreenHeight;
+    this.fullScreenHeight = (this.fullScreenWidth * miniScreenWidth) / miniScreenHeight;
     // Calculate section size
     const viewHeight = document.documentElement.clientHeight;
-    const space = viewHeight - fullScreenHeight;
+    const space = viewHeight - this.fullScreenHeight;
     this.sectionHeight = space / 2;
     // Init pad
-    fullScreenOptions.width = fullScreenWidth;
-    fullScreenOptions.height = fullScreenHeight;
+    fullScreenOptions.width = this.fullScreenWidth;
+    fullScreenOptions.height = this.fullScreenHeight;
     const { css } = fullScreenOptions;
-    this.bigCanvas.width = fullScreenWidth;
-    this.bigCanvas.height = fullScreenHeight;
+    this.bigCanvas.width = this.fullScreenWidth;
+    this.bigCanvas.height = this.fullScreenHeight;
     for (const key in css) {
       if (Object.prototype.hasOwnProperty.call(css, key)) {
         const value = css[key];
@@ -125,22 +129,44 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     this.overlayRef.attach(this.portal);
     this.initBigPad();
     // #region Copy miniscreen's content to fullscreen
-    const fullScreenWidth = document.documentElement.clientWidth;
-    const fullScreenHeight = document.documentElement.clientHeight;
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
-    const scale = fullScreenHeight / miniScreenWidth;
+    const widthScale = this.fullScreenHeight / miniScreenWidth;
+    const heightScale = this.fullScreenWidth / miniScreenHeight;
     const ctx = this.bigCanvas.getContext('2d');
     ctx.save();
-    ctx.translate(miniScreenWidth, 0);
+    ctx.translate(this.fullScreenWidth, 0);
     ctx.rotate((90 * Math.PI) / 180);
-    ctx.drawImage(this.smallCanvas, 0, 0, miniScreenWidth, miniScreenHeight, 0, 0, miniScreenWidth * scale, miniScreenHeight * scale);
+    ctx.drawImage(
+      this.smallCanvas,
+      0,
+      0,
+      miniScreenWidth,
+      miniScreenHeight,
+      0,
+      0,
+      miniScreenWidth * widthScale,
+      miniScreenHeight * heightScale
+    );
     ctx.restore();
     // #endregion
   }
 
   public miniscreen(): void {
-    this.overlayRef.dispose();
+    console.log('mini');
+    // #region Copy miniscreen's content to fullscreen
+    // const fullScreenWidth = document.documentElement.clientWidth;
+    // const fullScreenHeight = document.documentElement.clientHeight;
+    // const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
+    // const scale = miniScreenWidth / fullScreenHeight;
+    // const ctx = this.smallCanvas.getContext('2d');
+    // ctx.save();
+    // ctx.translate(0, 0);
+    // // ctx.rotate((90 * Math.PI) / 180);
+    // ctx.drawImage(this.bigCanvas, 0, 0, fullScreenWidth, fullScreenHeight, 0, 0, fullScreenWidth * scale, fullScreenHeight * scale);
+    // ctx.restore();
+    // #endregion
     this.isFullScreen = false;
+    this.overlayRef.dispose();
   }
 
   /** Returns signature image as an array of point groups */

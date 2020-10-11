@@ -50,8 +50,6 @@ export class MobileComponent implements OnInit {
     const height = (width * 2) / 3;
     this.options.width = width;
     this.options.height = height;
-    console.log(width, `width`);
-    console.log(height, `height`);
     // this.miniscreentSignature.setCanvasStyle(this.options);
   }
 }
