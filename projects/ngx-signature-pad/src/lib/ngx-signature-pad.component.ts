@@ -202,8 +202,10 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   private initSmallPad(): void {
     this.smallCanvas = document.querySelector('#nsp-small');
     const { width, height, css } = this.options;
-    this.smallCanvas.width = width ? width : 300;
-    this.smallCanvas.height = height ? height : 150;
+    this.options.width = width ? width : 300;
+    this.options.height = height ? height : 150;
+    this.smallCanvas.width = this.options.width;
+    this.smallCanvas.height = this.options.height;
     for (const key in css) {
       if (Object.prototype.hasOwnProperty.call(css, key)) {
         const value = css[key];
@@ -284,11 +286,18 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     if (velocityFilterWeight) {
       this.setPadAttribute('velocityFilterWeight', velocityFilterWeight);
     }
-    if (width) {
-      console.error('Do not surrpot width now');
-    }
-    if (height) {
-      console.error('Do not surrpot height now');
+    if (width || height) {
+      const { width: previousWidth, height: previousHeight } = changes.options.previousValue;
+      const data = this.smallPad.toDataURL();
+      const image = new Image();
+      image.src = data;
+      image.onload = () => {
+        this.initSmallPad();
+        const ctx = this.smallCanvas.getContext('2d');
+        const widthScale = width / previousWidth;
+        const heightScale = height / previousHeight;
+        ctx.drawImage(image, 0, 0, previousWidth, previousHeight, 0, 0, previousWidth * widthScale, previousHeight * heightScale);
+      };
     }
     if (css) {
       if (this.bigCanvas) {
