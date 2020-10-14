@@ -115,33 +115,34 @@ export class AppComponent {
 | `revert()` | Undo the last action. Notice that if you have the change of `fullscreen()` and `miniscreen()`, the `revert()` can not work after you change the mode. Under this situation, I do not recommend use it. |
 | `fullscreen()` | You can change the mode to fullscreen, the aspect ratio of the fullscreen signature is the same as that of the miniscreen signature. |
 | `miniscreen()` | You can change the mode to miniscreen. The inicial mode is miniscreen when you init the component. |
+| `getContext()` | Get canvas's `Context`, this is about canvas, after get `Context`, you can do anything you want, for example you can use `drawImage` to draw something in canvas pad, see demo in PC of `dragImage`. |
 
 ### Modify config during run time
 
 This plugin allow you modify config during run time, just modify the options that you want to pass. Notice that you can not only change the attribute of options. Because `OnChanges` does not trigger under this circumstance. You need to reassign the options. For example, the initial options as below: 
 
 ```typescript
-  const options: NgxSignatureOptions = {
-    penColor: 'rgb(0, 0, 0)' // Black
-    width: 300,
-    height: 150
-  };
+const options: NgxSignatureOptions = {
+  penColor: 'rgb(0, 0, 0)' // Black
+  width: 300,
+  height: 150
+};
 ```
 
 After run code, if you wan to change the color of pen, if you write code as below, it does not work.
 
 ```typescript
-  options.penColor = 'rgb(255, 0, 0)'; // Does not work, because can not trigger OnChanges
+options.penColor = 'rgb(255, 0, 0)'; // Does not work, because can not trigger OnChanges
 ```
 
 You need to reassign as below.
 
 ```typescript
-  const options: NgxSignatureOptions = {
-    penColor: 'rgb(255, 0, 0)' // Change the black to red
-    width: 300,
-    height: 150
-  };
+const options: NgxSignatureOptions = {
+  penColor: 'rgb(255, 0, 0)' // Change the black to red
+  width: 300,
+  height: 150
+};
 ```
 
 ### Notice
