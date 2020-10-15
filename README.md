@@ -1,7 +1,7 @@
 English | [简体中文](README-zh_CN.md)
 
 ## Demo
-You can see all detail directions of API and demo in [here](https://mr-eve.github.io/ngx-signature-pad/)
+You can see all detail directions of API and demo in [here](https://mr-eve.github.io/ngx-signature-pad/). There are diffent contents in the mode of PC and Mobile. PC emphasis on document, Mobile emphasis on example.
 
 ## Direction
 
@@ -123,7 +123,7 @@ This plugin allow you modify config during run time, just modify the options tha
 
 ```typescript
 const options: NgxSignatureOptions = {
-  penColor: 'rgb(0, 0, 0)' // Black
+  penColor: 'rgb(0, 0, 0)', // Black
   width: 300,
   height: 150
 };

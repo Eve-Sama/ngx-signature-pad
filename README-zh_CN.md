@@ -123,7 +123,7 @@ export class AppComponent {
 
 ```typescript
 const options: NgxSignatureOptions = {
-  penColor: 'rgb(0, 0, 0)' // 黑色
+  penColor: 'rgb(0, 0, 0)', // 黑色
   width: 300,
   height: 150
 };
