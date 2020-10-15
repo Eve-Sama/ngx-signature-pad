@@ -1,11 +1,19 @@
 .nsp-container {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   left: 0px;
   top: 0px;
-  width: 100vh;
+  width: 100%;
   height: 100vh;
   background: #fff;
   .section {
     flex: 1;
+    &.left {
+      border-bottom: 2px dashed #dedee5;
+    }
+    &.right {
+      border-top: 2px dashed #dedee5;
+    }
   }
 }
