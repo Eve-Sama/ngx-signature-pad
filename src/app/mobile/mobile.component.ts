@@ -18,10 +18,6 @@ export class MobileComponent implements OnInit {
     }
   };
 
-  public revert(): void {
-    this.signature.revert();
-  }
-
   public clear(): void {
     this.signature.clear();
   }

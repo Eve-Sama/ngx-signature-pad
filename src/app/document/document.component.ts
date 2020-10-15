@@ -11,6 +11,13 @@ export class DocumentComponent implements OnInit {
 
   @ViewChild('signature') signature: NgxSignaturePadComponent;
 
+  get isEmpty(): boolean {
+    if (this.signature) {
+      return this.signature.isEmpty();
+    }
+    return true;
+  }
+
   public options: NgxSignatureOptions = {
     backgroundColor: '#F4F5F5',
     width: 570,
@@ -32,11 +39,8 @@ export class DocumentComponent implements OnInit {
     this.signature.getContext().drawImage(this.image, 230, 35, 100, 50, 230, 110, 100, 50);
   }
 
-  get isEmpty(): boolean {
-    if (this.signature) {
-      return this.signature.isEmpty();
-    }
-    return true;
+  public revert(): void {
+    this.signature.revert();
   }
 
   public save(type?: 'image/jpeg' | 'image/svg+xml'): void {
