@@ -1,7 +1,7 @@
 .display-container {
   display: flex;
   justify-content: center;
-  padding-top: 50px;
+  margin-top: 50px;
   .display {
     position: relative;
     padding: 40px;
@@ -44,4 +44,10 @@
       font-weight: 600;
     }
   }
+}
+
+.tip {
+  margin-top: 50px;
+  margin-left: 74px;
+  font-style: italic;
 }
