@@ -51,10 +51,10 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   @Output() public onBegin = new EventEmitter<void>();
   @Output() public onEnd = new EventEmitter<void>();
 
-  @ViewChild('fullscreenTpl') fullscreenTpl: TemplateRef<void>;
+  @ViewChild('fullScreenTpl') fullScreenTpl: TemplateRef<void>;
 
   public fullScreen(): void {
-    this.portal = new TemplatePortal(this.fullscreenTpl, this.viewContainerRef);
+    this.portal = new TemplatePortal(this.fullScreenTpl, this.viewContainerRef);
     this.overlayRef = this.overlay.create({
       positionStrategy: this.overlay.position().global(),
       scrollStrategy: this.overlay.scrollStrategies.block(),
@@ -231,11 +231,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     if (this.bigPad) {
       this.bigPad[key] = value;
     }
-    // Obviously, it's necessary to judge whether smallPad is exist.
-    // But in the future, it's going to support only enable fullScreen mode. There, it's needed in the future.
-    if (this.smallPad) {
-      this.smallPad[key] = value;
-    }
+    this.smallPad[key] = value;
   }
 
   constructor(private renderer2: Renderer2, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
