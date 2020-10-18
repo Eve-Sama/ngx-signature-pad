@@ -145,10 +145,6 @@ const options: NgxSignatureOptions = {
 };
 ```
 
-### Notice
-
-The project has not been completed yet, it is still under development, the current version is Beta
-
 ## Front-end development exchange group
 
 Welcome everyone to join the QQ group 925528845 to discussion :D

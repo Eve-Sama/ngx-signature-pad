@@ -145,10 +145,6 @@ const options: NgxSignatureOptions = {
 };
 ```
 
-### 注意
-
-该项目尚未全部完成, 尚在研发中, 当前版本为Beta版.
-
 ## 前端开发交流群
 
 欢迎大家加入QQ群 925528845 一起讨论 :D
