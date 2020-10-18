@@ -1,11 +1,31 @@
+.clear-icon-container {
+  position: absolute;
+  top: 50%;
+  margin-top: -22px;
+  left: -33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 142px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  color: #fff;
+  transform: rotate(90deg);
+  font-size: 34px;
+}
+
+.fullscreen-small {
+  position: fixed;
+  bottom: 72px;
+  right: 24px;
+  transform: rotate(90deg);
+}
+
 .container {
   position: relative;
   app-icon {
     position: absolute;
-  }
-  .revert {
-    right: 60px;
-    bottom: 20px;
   }
   .clear {
     right: 20px;
@@ -15,25 +35,4 @@
     right: 20px;
     top: 20px;
   }
-}
-
-.fullscreen-small {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  transform: rotate(90deg);
-}
-
-.fullscreen-revert {
-  position: fixed;
-  bottom: 72px;
-  left: 24px;
-  transform: rotate(90deg);
-}
-
-.fullscreen-clear {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  transform: rotate(90deg);
 }
