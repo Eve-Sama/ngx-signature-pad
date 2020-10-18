@@ -241,7 +241,6 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes.options, `changes.options`);
     if (changes.options.firstChange) {
       return;
     }
