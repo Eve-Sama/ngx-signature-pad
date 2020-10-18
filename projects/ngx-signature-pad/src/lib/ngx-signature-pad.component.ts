@@ -53,7 +53,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   @ViewChild('fullscreenTpl') fullscreenTpl: TemplateRef<void>;
 
-  public fullscreen(): void {
+  public fullScreen(): void {
     this.portal = new TemplatePortal(this.fullscreenTpl, this.viewContainerRef);
     this.overlayRef = this.overlay.create({
       positionStrategy: this.overlay.position().global(),
@@ -63,7 +63,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     });
     this.overlayRef.attach(this.portal);
     this.initBigPad();
-    // #region Copy miniscreen's content to fullscreen
+    // #region Copy miniScreen's content to fullScreen
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
     const widthScale = this.fullScreenHeight / miniScreenWidth;
     const heightScale = this.fullScreenWidth / miniScreenHeight;
@@ -87,9 +87,9 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     this.isFullScreen = true;
   }
 
-  public miniscreen(): void {
+  public miniScreen(): void {
     this.smallPad.clear();
-    // #region Copy fullscreen's content to miniscreen
+    // #region Copy fullScreen's content to miniScreen
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
     const widthScale = miniScreenWidth / this.fullScreenHeight;
     const heightScale = miniScreenHeight / this.fullScreenWidth;
@@ -174,7 +174,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   private initBigPad(): void {
     this.bigCanvas = document.querySelector('#nsp-big');
     const fullScreenOptions = JSON.parse(JSON.stringify(this.options));
-    // Calculate the fullscreen pad's size
+    // Calculate the fullScreen pad's size
     this.fullScreenWidth = document.documentElement.clientWidth;
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
     this.fullScreenHeight = (this.fullScreenWidth * miniScreenWidth) / miniScreenHeight;
@@ -232,7 +232,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
       this.bigPad[key] = value;
     }
     // Obviously, it's necessary to judge whether smallPad is exist.
-    // But in the future, it's going to support only enable fullscreen mode. There, it's needed in the future.
+    // But in the future, it's going to support only enable fullScreen mode. There, it's needed in the future.
     if (this.smallPad) {
       this.smallPad[key] = value;
     }

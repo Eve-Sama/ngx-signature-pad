@@ -113,8 +113,8 @@ export class AppComponent {
 | `setDirty()` | 设置画布的状态为脏值, 之后 `isEmpty()` 返回 `false`. |
 | `setEmpty()` | 设置画布的状态为空值, 之后 `isEmpty()` 返回 `false`. |
 | `revert()` | 撤销画笔的动作. 需要注意, 如果有`全屏签名`和`小屏签名`的切换, 则该功能会有异常, 不建议使用. |
-| `fullscreen()` | 使用后可以切换签名模式为全屏签名, 全屏签名的长宽比与小屏签名时的长宽比保持一致. |
-| `miniscreen()` | 使用后可以切换签名模式为小屏签名. 初始化组件时, 就是小屏签名. |
+| `fullScreen()` | 使用后可以切换签名模式为全屏签名, 全屏签名的长宽比与小屏签名时的长宽比保持一致. |
+| `miniScreen()` | 使用后可以切换签名模式为小屏签名. 初始化组件时, 就是小屏签名. |
 | `getContext()` | 获取canvas实例的`Context`, 这与canvas知识点有关, 获取`Context`之后, 你可以为所欲为, 比如使用`drawImage`方法给canvas画画, 可参考PC版Demo的`drawImage`. |
 
 ### 在运行时修改配置

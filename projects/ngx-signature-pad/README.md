@@ -7,7 +7,7 @@ You can see all detail directions of API and demo in [here](https://mr-eve.githu
 
 This project is based on canvas plugin [signature_pad](https://github.com/szimek/signature_pad), and the canvas plugin only has basic functions, like `signature canvas`. I have encapsulated it with Angular which has the following features:
  - Provide API more suitable style for Angular.
- - Provide features not available in native plugins, like `modify state of signature manually`、`revert painting`、`fullscreen to sign` and so on.
+ - Provide features not available in native plugins, like `modify state of signature manually`、`revert painting`、`fullScreen to sign` and so on.
 
 ## Install
 
@@ -112,9 +112,9 @@ export class AppComponent {
 | `isEmpty()` | Returns true if canvas is empty, otherwise returns false. |
 | `setDirty()` | Set pad's state as dirty, then `isEmpty()` return false. |
 | `setEmpty()` | Set pad's state as empty, then `isEmpty()` return true. |
-| `revert()` | Undo the last action. Notice that if you have the change of `fullscreen()` and `miniscreen()`, the `revert()` can not work after you change the mode. Under this situation, I do not recommend use it. |
-| `fullscreen()` | You can change the mode to fullscreen, the aspect ratio of the fullscreen signature is the same as that of the miniscreen signature. |
-| `miniscreen()` | You can change the mode to miniscreen. The inicial mode is miniscreen when you init the component. |
+| `revert()` | Undo the last action. Notice that if you have the change of `fullScreen()` and `miniScreen()`, the `revert()` can not work after you change the mode. Under this situation, I do not recommend use it. |
+| `fullScreen()` | You can change the mode to fullScreen, the aspect ratio of the fullScreen signature is the same as that of the miniScreen signature. |
+| `miniScreen()` | You can change the mode to miniScreen. The inicial mode is miniScreen when you init the component. |
 | `getContext()` | Get canvas's `Context`, this is about canvas, after get `Context`, you can do anything you want, for example you can use `drawImage` to draw something in canvas pad, see demo in PC of `dragImage`. |
 
 ### Modify config during run time

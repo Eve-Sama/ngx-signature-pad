@@ -23,11 +23,11 @@ export class MobileComponent implements OnInit {
   }
 
   public fullScreen(): void {
-    this.signature.fullscreen();
+    this.signature.fullScreen();
   }
 
   public miniScreen(): void {
-    this.signature.miniscreen();
+    this.signature.miniScreen();
   }
 
   ngOnInit(): void {
