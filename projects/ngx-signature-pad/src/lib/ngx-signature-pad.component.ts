@@ -48,8 +48,8 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   @Input() options: NgxSignatureOptions = {};
 
-  @Output() public onBegin = new EventEmitter<void>();
-  @Output() public onEnd = new EventEmitter<void>();
+  @Output() public beginSign = new EventEmitter<void>();
+  @Output() public endSign = new EventEmitter<void>();
 
   @ViewChild('fullScreenTpl') fullScreenTpl: TemplateRef<void>;
 
@@ -219,12 +219,12 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   private _onBegin(): void {
     this.setDirty(); // When user draws, set state as dirty
-    this.onBegin.emit();
+    this.beginSign.emit();
   }
 
   private _onEnd(): void {
     this.signDataHistory = this.toData();
-    this.onEnd.emit();
+    this.endSign.emit();
   }
 
   private setPadAttribute(key: string, value: any): void {

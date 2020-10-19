@@ -49,8 +49,8 @@ export class AppModule { }
 <ngx-signature-pad
   #signature
   [options]="options"
-  (onBegin)="onBegin()"
-  (onEnd)="onEnd()">
+  (beginSign)="onBegin()"
+  (endSign)="onEnd()">
 </ngx-signature-pad>
 ```
 ```typescript
