@@ -8,6 +8,7 @@
 该项目基于原生插件 [signature_pad](https://github.com/szimek/signature_pad) 开发, 该原生插件只具备很基础的`签名Canvas`的功能. 而本插件在它的基础上使用Angular进行封装, 具备如下特点:
  - 对外提供更加适合Angular风格的API.
  - 提供原生插件不具备的功能, 如`允许用户手动更改状态`、`撤销笔画`、`全屏签名`等.
+ - 允许运行时更改参数, 如重新设置宽高.
 
 ## 安装
 
@@ -49,8 +50,8 @@ export class AppModule { }
 <ngx-signature-pad
   #signature
   [options]="options"
-  (beginSign)="onBegin()"
-  (endSign)="onEnd()">
+  (beginSign)="onBeginSign()"
+  (endSign)="onEndSign()">
 </ngx-signature-pad>
 ```
 ```typescript
@@ -76,10 +77,10 @@ export class AppComponent {
   };
 
   /** 开始签字的事件 */
-  onBegin(): void { }
+  onBeginSign(): void { }
 
   /** 停止签字的事件 */
-  onEnd(): void { }
+  onEndSign(): void { }
 }
 ```
 ### NgxSignatureOptions

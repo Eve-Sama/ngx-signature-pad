@@ -8,6 +8,7 @@ You can see all detail directions of API and demo in [here](https://mr-eve.githu
 This project is based on canvas plugin [signature_pad](https://github.com/szimek/signature_pad), and the canvas plugin only has basic functions, like `signature canvas`. I have encapsulated it with Angular which has the following features:
  - Provide API more suitable style for Angular.
  - Provide features not available in native plugins, like `modify state of signature manually`、`revert painting`、`fullScreen to sign` and so on.
+ - You can change the config in run time, such as width/height.
 
 ## Install
 
@@ -49,8 +50,8 @@ export class AppModule { }
 <ngx-signature-pad
   #signature
   [options]="options"
-  (beginSign)="onBegin()"
-  (endSign)="onEnd()">
+  (beginSign)="onBeginSign()"
+  (endSign)="onEndSign()">
 </ngx-signature-pad>
 ```
 ```typescript
@@ -76,10 +77,10 @@ export class AppComponent {
   };
 
   /** The begin event of sign */
-  onBegin(): void { }
+  onBeginSign(): void { }
 
   /** The end event of sign */
-  onEnd(): void { }
+  onEndSign(): void { }
 }
 ```
 ### NgxSignatureOptions
