@@ -14,12 +14,12 @@ This project is based on canvas plugin [signature_pad](https://github.com/szimek
 
 Via NPM
 ```bash
-npm install --save @eve-sama/ngx-signature_pad
+npm install --save @eve-sama/ngx-signature-pad
 ```
 
 Via yarn
 ```bash
-yarn add --save @eve-sama/ngx-signature_pad
+yarn add --save @eve-sama/ngx-signature-pad
 ```
 
 ## Usage

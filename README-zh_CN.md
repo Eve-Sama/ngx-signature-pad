@@ -14,12 +14,12 @@
 
 通过NPM
 ```bash
-npm install --save @eve-sama/ngx-signature_pad
+npm install --save @eve-sama/ngx-signature-pad
 ```
 
 通过Yarn
 ```bash
-yarn add --save @eve-sama/ngx-signature_pad
+yarn add --save @eve-sama/ngx-signature-pad
 ```
 
 ## 使用
