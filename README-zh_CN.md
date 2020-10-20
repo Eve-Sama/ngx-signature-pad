@@ -1,7 +1,7 @@
 [English](README.md) | 简体中文
 
 ## 示例
-你可以在[这里](https://mr-eve.github.io/ngx-signature-pad/)查看所有API的详细说明以及应用演示, PC模式和Mobile模式展现的内容不一样, PC侧重文档, Mobile侧重Demo, 详情请自行前往.
+你可以在[这里](https://eve-sama.github.io/ngx-signature-pad/)查看所有API的详细说明以及应用演示, PC模式和Mobile模式展现的内容不一样, PC侧重文档, Mobile侧重Demo, 详情请自行前往.
 
 ## 说明
 
