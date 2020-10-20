@@ -2,8 +2,9 @@
   "name": "@eve-sama/ngx-signature-pad",
   "version": "1.1.0",
   "peerDependencies": {
-    "@angular/common": "^10.0.14",
-    "@angular/core": "^10.0.14"
+    "@angular/cdk": "~10.0.0",
+    "@angular/common": "^10.0.0",
+    "@angular/core": "^10.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0",
