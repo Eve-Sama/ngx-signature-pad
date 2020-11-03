@@ -65,8 +65,6 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
     this.initBigPad();
     // #region Copy miniScreen's content to fullScreen
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
-    const widthScale = this.fullScreenHeight / miniScreenWidth;
-    const heightScale = this.fullScreenWidth / miniScreenHeight;
     const ctx = this.bigCanvas.getContext('2d');
     ctx.save();
     ctx.translate(this.fullScreenWidth, 0);
@@ -79,8 +77,8 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
       miniScreenHeight,
       0,
       0,
-      miniScreenWidth * widthScale,
-      miniScreenHeight * heightScale
+      this.fullScreenHeight,
+      this.fullScreenWidth
     );
     ctx.restore();
     // #endregion
@@ -289,9 +287,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
       image.onload = () => {
         this.initSmallPad();
         const ctx = this.smallCanvas.getContext('2d');
-        const widthScale = width / previousWidth;
-        const heightScale = height / previousHeight;
-        ctx.drawImage(image, 0, 0, previousWidth, previousHeight, 0, 0, previousWidth * widthScale, previousHeight * heightScale);
+        ctx.drawImage(image, 0, 0, previousWidth, previousHeight, 0, 0, width, height);
       };
     }
     if (css) {
