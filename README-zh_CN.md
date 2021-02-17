@@ -1,5 +1,10 @@
 [English](README.md) | 简体中文
 
+## 简介
+一款适合Angular生态的手写签名插件, 支持v10 ~ v11.
+
+![avatar](https://file.qingflow.com/uploads/file/2a456187-566b-4941-9abb-b93efe8f37a2.gif)
+
 ## 示例
 你可以在[这里](https://eve-sama.github.io/ngx-signature-pad/)查看所有API的详细说明以及应用演示, PC模式和Mobile模式展现的内容不一样, PC侧重文档, Mobile侧重Demo, 详情请自行前往.
 
