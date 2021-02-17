@@ -1,5 +1,10 @@
 English | [简体中文](https://github.com/Mr-Eve/ngx-signature-pad/blob/master/README-zh_CN.md)
 
+## Introduction
+A handwritten signature plugin suitable for Angular ecology, suppprt v10 ~ v11.
+
+![avatar](https://file.qingflow.com/uploads/file/2a456187-566b-4941-9abb-b93efe8f37a2.gif)
+
 ## Demo
 You can see all detail directions of API and demo in [here](https://eve-sama.github.io/ngx-signature-pad/). There are diffent contents in the mode of PC and Mobile. PC emphasis on document, Mobile emphasis on example.
 
