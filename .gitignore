@@ -48,5 +48,3 @@ node_modules
 
 # Custom
 projects/ngx-signature-pad/dist
-yarn.lock
-package-lock.json
