@@ -3,7 +3,7 @@
   "author": "Eve-Sama",
   "repository": "https://github.com/Mr-Eve/ngx-signature-pad",
   "scripts": {
-    "build-lib": "ng build ngx-signature-pad --prod",
+    "build-lib": "ng build ngx-signature-pad --configuration production",
     "deploy": "ng deploy --base-href=\"./\"",
     "start": "ng serve",
     "build": "ng build",
@@ -11,29 +11,29 @@
   },
   "private": false,
   "dependencies": {
-    "@angular/cdk": "~11.2.0",
-    "@angular/common": "~12.0.0-next.0",
-    "@angular/compiler": "~12.0.0-next.0",
-    "@angular/core": "~12.0.0-next.0",
-    "@angular/platform-browser": "~12.0.0-next.0",
-    "@angular/platform-browser-dynamic": "~12.0.0-next.0",
-    "@angular/router": "~12.0.0-next.0",
+    "@angular/cdk": "~13.2.6",
+    "@angular/common": "~13.2.6",
+    "@angular/compiler": "~13.2.6",
+    "@angular/core": "~13.2.6",
+    "@angular/platform-browser": "~13.2.6",
+    "@angular/platform-browser-dynamic": "~13.2.6",
+    "@angular/router": "~13.2.6",
     "rxjs": "~6.6.3",
     "signature_pad": "3.0.0-beta.3",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.0",
+    "@angular-devkit/build-angular": "~13.2.6",
     "@angular-devkit/build-ng-packagr": "~0.1000.8",
-    "@angular/cli": "~11.2.0",
-    "@angular/compiler-cli": "~12.0.0-next.0",
+    "@angular/cli": "~13.2.6",
+    "@angular/compiler-cli": "~13.2.6",
     "@types/node": "^12.11.1",
     "angular-cli-ghpages": "^0.6.2",
     "codelyzer": "^6.0.0",
-    "ng-packagr": "^11.2.1",
+    "ng-packagr": "^13.2.1",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.1.5"
+    "typescript": "~4.5.5"
   }
 }
