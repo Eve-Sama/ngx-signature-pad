@@ -1,9 +1,9 @@
-<canvas id="nsp-small"></canvas>
+<canvas #nspSmall></canvas>
 
 <ng-template #fullScreenTpl>
   <div class="nsp-container">
     <div class="section left" style="width: 100%;" [ngStyle]="{'height': sectionHeight + 'px'}"></div>
-    <canvas id="nsp-big"></canvas>
+    <canvas #nspBig></canvas>
     <div class="section right" style="width: 100%;" [ngStyle]="{'height': sectionHeight + 'px'}"></div>
     <ng-content></ng-content>
   </div>
