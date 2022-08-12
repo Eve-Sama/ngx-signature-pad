@@ -1,7 +1,7 @@
 {
   "name": "signature-pad",
   "author": "Eve-Sama",
-  "repository": "https://github.com/Mr-Eve/ngx-signature-pad",
+  "repository": "https://github.com/Eve-Sama/ngx-signature-pad",
   "scripts": {
     "build-lib": "ng build ngx-signature-pad --configuration production",
     "deploy": "ng deploy --base-href=\"./\"",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.2.6",
-    "@angular-devkit/build-ng-packagr": "~0.1000.8",
+    "@angular-devkit/build-ng-packagr": "^0.1000.8",
     "@angular/cli": "~13.2.6",
     "@angular/compiler-cli": "~13.2.6",
     "@types/node": "^12.11.1",

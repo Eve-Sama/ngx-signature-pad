@@ -3,5 +3,5 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "whitelistedNonPeerDependencies": ["signature_pad"]
+  "allowedNonPeerDependencies": ["signature_pad"]
 }
