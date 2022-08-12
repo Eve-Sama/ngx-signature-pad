@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Router } from '@angular/router';
 
@@ -8,14 +8,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private platform: Platform, private router: Router) {}
+  private mode: 'mobile' | 'document';
 
-  private isMobile(): boolean {
-    return this.platform.ANDROID || this.platform.IOS;
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.judgeMode();
   }
 
+  private judgeMode(): void {
+    const newMode: 'mobile' | 'document' = this.isMobile() ? 'mobile' : 'document';
+    if (newMode !== this.mode) {
+      this.mode = newMode;
+      this.router.navigate([`/${newMode}`]);
+      console.log('jump');
+    }
+  }
+
+  private isMobile(): boolean {
+    if (this.platform.ANDROID || this.platform.IOS) {
+      return true;
+    }
+    // The Platform doesn't work in firefox when open the responsive mode, therfore use innerWidth
+    return window.innerWidth <= 400;
+  }
+
+  constructor(private platform: Platform, private router: Router) {}
+
   ngOnInit(): void {
-    const url = this.isMobile() ? '/mobile' : '/document';
-    this.router.navigate([url]);
+    this.judgeMode();
   }
 }
