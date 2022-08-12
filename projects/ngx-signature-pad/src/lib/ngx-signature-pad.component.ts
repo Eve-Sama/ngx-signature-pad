@@ -4,12 +4,13 @@ import {
   Input,
   Output,
   EventEmitter,
-  OnInit,
+  AfterViewInit,
   OnChanges,
   SimpleChanges,
   TemplateRef,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  ElementRef
 } from '@angular/core';
 import SignaturePad, { IPointGroup } from 'signature_pad';
 import { NgxSignatureOptions } from './types/ngx-signature-pad';
@@ -21,7 +22,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
   templateUrl: './ngx-signature-pad.component.html',
   styleUrls: ['./ngx-signature-pad.component.scss']
 })
-export class NgxSignaturePadComponent implements OnInit, OnChanges {
+export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
   // #region The object of dependency 'siganture_pad'
   private smallPad: SignaturePad;
   private bigPad: SignaturePad;
@@ -53,6 +54,9 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   @ViewChild('fullScreenTpl') fullScreenTpl: TemplateRef<void>;
 
+  @ViewChild('nspSmall', { static: false }) nspSmall: ElementRef;
+  @ViewChild('nspBig', { static: false }) nspBig: ElementRef;
+
   public fullScreen(): void {
     this.portal = new TemplatePortal(this.fullScreenTpl, this.viewContainerRef);
     this.overlayRef = this.overlay.create({
@@ -62,26 +66,30 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
       width: '100%'
     });
     this.overlayRef.attach(this.portal);
-    this.initBigPad();
-    // #region Copy miniScreen's content to fullScreen
-    const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
-    const ctx = this.bigCanvas.getContext('2d');
-    ctx.save();
-    ctx.translate(this.fullScreenWidth, 0);
-    ctx.rotate((90 * Math.PI) / 180);
-    ctx.drawImage(
-      this.smallCanvas,
-      0,
-      0,
-      miniScreenWidth,
-      miniScreenHeight,
-      0,
-      0,
-      this.fullScreenHeight,
-      this.fullScreenWidth
-    );
-    ctx.restore();
-    // #endregion
+
+    setTimeout(() => {
+      this.initBigPad();
+      // #region Copy miniScreen's content to fullScreen
+      const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
+      const ctx = this.bigCanvas.getContext('2d');
+      ctx.save();
+      ctx.translate(this.fullScreenWidth, 0);
+      ctx.rotate((90 * Math.PI) / 180);
+      ctx.drawImage(
+        this.smallCanvas,
+        0,
+        0,
+        miniScreenWidth,
+        miniScreenHeight,
+        0,
+        0,
+        this.fullScreenHeight,
+        this.fullScreenWidth
+      );
+      ctx.restore();
+      // #endregion
+
+    }, 0);
     this.isFullScreen = true;
   }
 
@@ -170,7 +178,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   }
 
   private initBigPad(): void {
-    this.bigCanvas = document.querySelector('#nsp-big');
+    this.bigCanvas = this.nspBig.nativeElement; //document.querySelector('#nsp-big');
     const fullScreenOptions = JSON.parse(JSON.stringify(this.options));
     // Calculate the fullScreen pad's size
     this.fullScreenWidth = document.documentElement.clientWidth;
@@ -198,7 +206,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
   }
 
   private initSmallPad(): void {
-    this.smallCanvas = document.querySelector('#nsp-small');
+    this.smallCanvas = this.nspSmall.nativeElement; //document.querySelector('#nsp-small');
     const { width, height, css } = this.options;
     this.options.width = width ? width : 300;
     this.options.height = height ? height : 150;
@@ -234,7 +242,7 @@ export class NgxSignaturePadComponent implements OnInit, OnChanges {
 
   constructor(private renderer2: Renderer2, private overlay: Overlay, private viewContainerRef: ViewContainerRef) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.initSmallPad();
   }
 
