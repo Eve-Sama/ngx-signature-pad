@@ -29,7 +29,7 @@
     "@angular/cli": "^14.1.2",
     "@angular/compiler-cli": "^14.1.2",
     "@types/node": "^12.11.1",
-    "angular-cli-ghpages": "^0.6.2",
+    "angular-cli-ghpages": "^1.0.3",
     "codelyzer": "^6.0.0",
     "ng-packagr": "^14.1.0",
     "ts-node": "~8.3.0",
