@@ -1,7 +1,7 @@
 [English](README.md) | 简体中文
 
 ## 简介
-一款适合Angular生态的手写签名插件, 支持V13.
+一款适合Angular生态的手写签名插件, 支持V15.
 
 ![avatar](https://file.qingflow.com/uploads/file/2a456187-566b-4941-9abb-b93efe8f37a2.gif)
 
