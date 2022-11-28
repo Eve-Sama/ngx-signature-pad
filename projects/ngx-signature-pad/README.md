@@ -1,7 +1,7 @@
 English | [简体中文](https://github.com/eve-sama/ngx-signature-pad/blob/master/README-zh_CN.md)
 
 ## Introduction
-A handwritten signature plugin suitable for Angular ecology, suppprt V13.
+A handwritten signature plugin suitable for Angular ecology, suppprt V15.
 
 ![avatar](https://file.qingflow.com/uploads/file/2a456187-566b-4941-9abb-b93efe8f37a2.gif)
 
@@ -150,7 +150,3 @@ const options: NgxSignatureOptions = {
   height: 150
 };
 ```
-
-## Front-end development exchange group
-
-Welcome everyone to join the QQ group 925528845 to discussion :D

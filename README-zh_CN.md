@@ -150,7 +150,3 @@ const options: NgxSignatureOptions = {
   height: 150
 };
 ```
-
-## 前端开发交流群
-
-欢迎大家加入QQ群 925528845 一起讨论 :D

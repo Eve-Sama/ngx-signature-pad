@@ -1,6 +1,6 @@
 {
   "name": "@eve-sama/ngx-signature-pad",
-  "version": "15.0.1",
+  "version": "15.0.3",
   "peerDependencies": {
     "@angular/cdk": "^15.0.0",
     "@angular/common": "^15.0.1",
