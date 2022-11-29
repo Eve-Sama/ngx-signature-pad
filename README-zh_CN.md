@@ -111,9 +111,9 @@ export class AppComponent {
 | `toDataURL()` | PNG格式的 data URL. |
 | `toDataURL("image/jpeg")` | JPEG格式的 data URL. |
 | `toDataURL("image/svg+xml")` | SVG格式的 data URL. |
-| `fromDataURL()` | 将`base64`的内容画在画布上. |
-| `toData()` | 将画布上的内容转化为data URL. |
-| `fromData()` | 将data URL转化为画布上的内容. |
+| `fromDataURL(dataUrl: string)` | 将`base64`的内容画在画布上. |
+| `toData()` | 将画布上的内容转化为 `IPointGroup[]`. |
+| `fromData(pointGroups: IPointGroup[])` | 将 `IPointGroup[]` 转化为画布上的内容. |
 | `clear()` | 清除画布内容. |
 | `isEmpty()` | 如果画布有内容则会返回`true`, 否则返回`false`. |
 | `setDirty()` | 设置画布的状态为脏值, 之后 `isEmpty()` 返回 `false`. |

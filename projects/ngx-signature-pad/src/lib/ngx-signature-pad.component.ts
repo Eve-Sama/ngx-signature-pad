@@ -41,7 +41,7 @@ export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
   private _isEmpty = true;
   private isFullScreen = false;
 
-  public sectionHeight: number;
+  sectionHeight: number;
 
   private get activePad(): SignaturePad {
     return this.isFullScreen ? this.bigPad : this.smallPad;
@@ -49,15 +49,15 @@ export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
 
   @Input() options: NgxSignatureOptions = {};
 
-  @Output() public beginSign = new EventEmitter<void>();
-  @Output() public endSign = new EventEmitter<void>();
+  @Output() beginSign = new EventEmitter<void>();
+  @Output() endSign = new EventEmitter<void>();
 
   @ViewChild('fullScreenTpl') fullScreenTpl: TemplateRef<void>;
 
   @ViewChild('nspSmall', { static: false }) nspSmall: ElementRef;
   @ViewChild('nspBig', { static: false }) nspBig: ElementRef;
 
-  public fullScreen(): void {
+  fullScreen(): void {
     this.portal = new TemplatePortal(this.fullScreenTpl, this.viewContainerRef);
     this.overlayRef = this.overlay.create({
       positionStrategy: this.overlay.position().global(),
@@ -75,25 +75,14 @@ export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
       ctx.save();
       ctx.translate(this.fullScreenWidth, 0);
       ctx.rotate((90 * Math.PI) / 180);
-      ctx.drawImage(
-        this.smallCanvas,
-        0,
-        0,
-        miniScreenWidth,
-        miniScreenHeight,
-        0,
-        0,
-        this.fullScreenHeight,
-        this.fullScreenWidth
-      );
+      ctx.drawImage(this.smallCanvas, 0, 0, miniScreenWidth, miniScreenHeight, 0, 0, this.fullScreenHeight, this.fullScreenWidth);
       ctx.restore();
       // #endregion
-
     }, 0);
     this.isFullScreen = true;
   }
 
-  public miniScreen(): void {
+  miniScreen(): void {
     this.smallPad.clear();
     // #region Copy fullScreen's content to miniScreen
     const { width: miniScreenWidth, height: miniScreenHeight } = this.options;
@@ -123,16 +112,16 @@ export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
   }
 
   /** Returns signature image as an array of point groups */
-  public toData(): IPointGroup[] {
+  toData(): IPointGroup[] {
     return this.activePad.toData();
   }
 
   /** Draws signature image from an array of point groups */
-  public fromData(pointGroups: IPointGroup[]): void {
+  fromData(pointGroups: IPointGroup[]): void {
     this.activePad.fromData(pointGroups);
   }
 
-  public toDataURL(type?: 'image/jpeg' | 'image/svg+xml'): string {
+  toDataURL(type?: 'image/jpeg' | 'image/svg+xml'): string {
     switch (type) {
       case 'image/jpeg':
         return this.activePad.toDataURL('image/jpeg');
@@ -143,7 +132,19 @@ export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  public revert(): void {
+  fromDataURL(
+    dataUrl: string,
+    options?: {
+      ratio?: number;
+      width?: number;
+      height?: number;
+    },
+    callback?: (error?: ErrorEvent) => void
+  ): void {
+    this.activePad.fromDataURL(dataUrl, options, callback);
+  }
+
+  revert(): void {
     this.signDataHistory.pop();
     this.fromData(this.signDataHistory);
     if (this.signDataHistory.length === 0) {
@@ -152,28 +153,28 @@ export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
   }
 
   // Clears the canvas
-  public clear(): void {
+  clear(): void {
     this.setEmpty();
     this.signDataHistory = [];
     this.activePad.clear();
   }
 
   /** Return true if canvas is empty, otherwise return false */
-  public isEmpty(): boolean {
+  isEmpty(): boolean {
     return this._isEmpty;
   }
 
   /** Set canvas's state as dirty */
-  public setDirty(): void {
+  setDirty(): void {
     this._isEmpty = false;
   }
 
   /** Set canvas's state as empty */
-  public setEmpty(): void {
+  setEmpty(): void {
     this._isEmpty = true;
   }
 
-  public getContext(): CanvasRenderingContext2D {
+  getContext(): CanvasRenderingContext2D {
     return this.isFullScreen ? this.bigCanvas.getContext('2d') : this.smallCanvas.getContext('2d');
   }
 
@@ -250,19 +251,8 @@ export class NgxSignaturePadComponent implements AfterViewInit, OnChanges {
     if (changes.options.firstChange) {
       return;
     }
-    const {
-      dotSize,
-      minWidth,
-      maxWidth,
-      throttle,
-      minDistance,
-      backgroundColor,
-      penColor,
-      velocityFilterWeight,
-      width,
-      height,
-      css
-    } = changes.options.currentValue;
+    const { dotSize, minWidth, maxWidth, throttle, minDistance, backgroundColor, penColor, velocityFilterWeight, width, height, css } =
+      changes.options.currentValue;
     if (dotSize) {
       this.setPadAttribute('dotSize', dotSize);
     }

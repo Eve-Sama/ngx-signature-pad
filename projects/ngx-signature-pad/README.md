@@ -111,9 +111,9 @@ export class AppComponent {
 | `toDataURL()` | Get data URL of it as PNG. |
 | `toDataURL("image/jpeg")` | Get data URL of it as JPEG. |
 | `toDataURL("image/svg+xml")` | Get data URL of it as SVG. |
-| `fromDataURL()` | Draws signature image from data URL, you need to pass it with `base64`. |
-| `toData()` | Returns signature image as an array of point groups. |
-| `fromData()` | Draws signature image from data URL. |
+| `fromDataURL(dataUrl: string)` | Draws signature image from data URL, you need to pass it with `base64`. |
+| `toData()` | Returns signature image as `IPointGroup[]`. |
+| `fromData(pointGroups: IPointGroup[])` | Draws signature image from `IPointGroup[]`. |
 | `clear()` | Clears the canvas. |
 | `isEmpty()` | Returns true if canvas is empty, otherwise returns false. |
 | `setDirty()` | Set pad's state as dirty, then `isEmpty()` return false. |
